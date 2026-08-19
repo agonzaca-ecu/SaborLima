@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sabor Lima · Los restaurantes peruanos de moda</title>
+<style>
+  :root{
+    --bg:#f4f5f7; --surface:#fff; --line:#e6e8ec;
+    --txt:#1e2330; --mut:#6b7280; --mut2:#9aa1ac;
+    --orange:#ff6a13; --orange-d:#e85d08; --red:#f5333f;
+    --green:#1f9d55; --chipbg:#eef1f4;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:'Segoe UI',system-ui,-apple-system,sans-serif;
+    background:var(--bg);color:var(--txt);min-height:100vh;line-height:1.5;
+  }
+  a{color:var(--orange);text-decoration:none}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 18px 80px}
+
+  header.hero{background:#fff;border-bottom:1px solid var(--line);padding:22px 18px 20px;text-align:center}
+  .brand{display:flex;align-items:center;justify-content:center;gap:11px}
+  .brand .dot{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--orange),#ffb347)}
+  h1{font-size:clamp(26px,4.5vw,38px);letter-spacing:-.5px;font-weight:800}
+  h1 span{color:var(--orange)}
+  .loc{display:inline-block;margin-top:9px;font-size:12.5px;color:var(--orange);background:#fff2e8;border:1px solid #ffd9bd;padding:4px 12px;border-radius:999px;font-weight:600}
+  .sub{color:var(--mut);max-width:640px;margin:10px auto 0;font-size:14px}
+
+  .controls{position:sticky;top:0;z-index:30;padding:14px 0 12px;background:var(--bg);border-bottom:1px solid var(--line)}
+  .searchrow{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .search{
+    flex:1;min-width:220px;display:flex;align-items:center;gap:10px;
+    background:#fff;border:2px solid var(--orange);border-radius:999px;padding:10px 18px;box-shadow:0 1px 3px rgba(0,0,0,.04);
+  }
+  .search input{background:none;border:none;outline:none;color:var(--txt);width:100%;font-size:15px}
+  select,.btn{
+    background:#fff;border:1px solid var(--line);color:var(--txt);
+    border-radius:999px;padding:10px 16px;font-size:14px;cursor:pointer;font-family:inherit;font-weight:600;
+  }
+  .btn:hover,select:hover{border-color:var(--orange)}
+  .btn.gold{background:var(--orange);color:#fff;border-color:var(--orange)}
+  .btn.gold:hover{background:var(--orange-d)}
+  .btn.fire{background:var(--red);color:#fff;border-color:var(--red)}
+
+  .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+  .chip{
+    background:#fff;border:1px solid var(--line);color:var(--mut);
+    padding:7px 15px;border-radius:999px;font-size:13px;cursor:pointer;transition:.15s;white-space:nowrap;font-weight:600;
+  }
+  .chip:hover{color:var(--txt);border-color:var(--orange)}
+  .chip.on{background:var(--orange);color:#fff;border-color:var(--orange)}
+
+  .meta{display:flex;justify-content:space-between;align-items:center;margin:18px 2px 6px;flex-wrap:wrap;gap:8px}
+  .count{color:var(--mut);font-size:14px}
+  .count b{color:var(--txt)}
+
+  .group-title{display:flex;align-items:center;gap:12px;margin:28px 2px 14px;font-size:20px;font-weight:800}
+  .group-title .ic{font-size:22px}
+  .group-title .n{color:var(--mut2);font-size:13px;font-weight:600}
+  .group-title::after{content:"";flex:1;height:1px;background:var(--line)}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px}
+  .card{
+    background:var(--surface);border:1px solid var(--line);border-radius:16px;
+    display:flex;flex-direction:column;position:relative;overflow:hidden;
+    box-shadow:0 1px 3px rgba(20,30,50,.06);transition:.18s;
+  }
+  .card:hover{box-shadow:0 10px 26px rgba(20,30,50,.13);transform:translateY(-3px)}
+
+  .banner{position:relative;height:120px;display:flex;align-items:center;justify-content:center}
+  .bemoji{font-size:54px;filter:drop-shadow(0 2px 5px rgba(0,0,0,.28))}
+  .disc{position:absolute;top:10px;left:10px;background:var(--red);color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:999px}
+  .ribbon{position:absolute;bottom:10px;left:10px;right:52px;background:rgba(0,0,0,.55);color:#fff;font-size:11px;font-weight:600;padding:3px 10px;border-radius:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .fav{position:absolute;top:9px;right:9px;width:34px;height:34px;border-radius:50%;background:#fff;border:none;font-size:18px;color:#d0d4da;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(0,0,0,.15);transition:.15s}
+  .fav.on{color:var(--red)}
+
+  .body{padding:15px 16px 16px;display:flex;flex-direction:column;flex:1}
+  .body h3{font-size:18px;font-weight:800;line-height:1.2}
+  .chef{font-size:12.5px;color:var(--mut);margin-top:3px}
+  .metaline{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;margin:9px 0 2px;font-size:12.5px;color:var(--mut)}
+  .metaline .price{color:var(--green);font-weight:700}
+  .range{font-size:13px;color:var(--green);font-weight:700;margin:6px 0 2px}
+  .dishes{margin:10px 0 4px}
+  .dishes ul{list-style:none;display:flex;flex-wrap:wrap;gap:6px}
+  .dishes li{font-size:12px;background:var(--chipbg);border-radius:7px;padding:4px 9px;color:#3a4150}
+  .why{font-size:13px;color:var(--mut);margin-top:8px;flex:1}
+  .cardfoot{margin-top:12px;font-size:12px;color:var(--mut2)}
+  .byrow{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}
+  .by{font-size:11.5px;color:var(--mut2);text-align:right;flex:1}
+  .cta{background:#111;color:#fff;font-size:12.5px;font-weight:700;padding:8px 14px;border-radius:999px;white-space:nowrap}
+  .cta:hover{background:#333}
+  .cta.search{background:#fff;color:#111;border:1px solid var(--line)}
+  .cta.search:hover{background:#f4f5f7;border-color:var(--orange);color:var(--orange)}
+
+  .empty{text-align:center;color:var(--mut);padding:50px 0}
+
+  .modal-bg{position:fixed;inset:0;background:rgba(20,25,35,.5);display:none;align-items:center;justify-content:center;z-index:60;padding:18px}
+  .modal-bg.on{display:flex}
+  .modal{background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px;max-width:480px;width:100%;max-height:92vh;overflow:auto;box-shadow:0 20px 60px rgba(0,0,0,.25)}
+  .modal h2{margin-bottom:14px;font-size:20px}
+  .modal label{display:block;font-size:12px;color:var(--mut);margin:10px 0 4px}
+  .modal input,.modal select,.modal textarea{width:100%;background:#f7f8fa;border:1px solid var(--line);border-radius:9px;padding:10px;color:var(--txt);font-family:inherit;font-size:14px}
+  .modal .row{display:flex;gap:10px}
+  .modal .row>div{flex:1}
+  .modal-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:18px}
+
+  footer{text-align:center;color:var(--mut2);font-size:12px;margin-top:40px;padding:0 18px;line-height:1.7}
+
+  /* ---- layout profesional v2 ---- */
+  .topbar{position:sticky;top:0;z-index:40;background:#fff;border-bottom:1px solid var(--line);
+    display:flex;align-items:center;gap:16px;padding:12px 22px;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+  .topbar .brand{display:flex;align-items:center;gap:9px;font-size:20px;font-weight:800;white-space:nowrap}
+  .topbar .brand .dot{width:26px;height:26px;border-radius:7px;background:linear-gradient(135deg,var(--orange),#ffb347)}
+  .topbar .brand span{color:var(--orange)}
+  .topbar .search{flex:1;max-width:620px;margin:0 auto}
+  .topbar .btn.gold{white-space:nowrap}
+
+  .catstrip{position:sticky;top:57px;z-index:35;background:#fff;border-bottom:1px solid var(--line);
+    display:flex;gap:6px;overflow-x:auto;padding:14px 22px}
+  .cattile{flex:0 0 auto;width:86px;text-align:center;cursor:pointer;border:none;background:none;font-family:inherit;padding:0}
+  .cattile .circle{width:62px;height:62px;border-radius:50%;margin:0 auto 7px;display:flex;align-items:center;justify-content:center;
+    font-size:29px;box-shadow:0 2px 6px rgba(0,0,0,.12);border:3px solid transparent;transition:.15s}
+  .cattile .clabel{font-size:11.5px;color:var(--mut);font-weight:600;line-height:1.15;display:block;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .cattile:hover .circle{transform:translateY(-2px)}
+  .cattile.on .circle{border-color:var(--orange)}
+  .cattile.on .clabel{color:var(--orange)}
+
+  .layout{display:flex;gap:26px;align-items:flex-start;padding-top:22px}
+  .sidebar{flex:0 0 232px;position:sticky;top:150px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px}
+  .sidebar h4{font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:var(--mut2);margin:16px 0 8px}
+  .sidebar h4:first-child{margin-top:0}
+  .sidebar select{width:100%}
+  .sidebar .chk{display:flex;align-items:center;gap:9px;font-size:14px;color:var(--txt);cursor:pointer;margin:9px 0;font-weight:600}
+  .sidebar .chk input{width:auto;accent-color:var(--orange);transform:scale(1.15)}
+  .sidebar .btn{width:100%;margin-top:18px;justify-content:center}
+  .btn.ghost{background:#fff;border:1px solid var(--line);color:var(--txt)}
+  .btn.ghost:hover{border-color:var(--orange);color:var(--orange)}
+
+  .main{flex:1;min-width:0}
+  .main-head{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;margin-bottom:18px;flex-wrap:wrap}
+  .main-head h2{font-size:26px;font-weight:800}
+  .subcount{color:var(--mut);font-size:14px;margin-top:3px}
+  .subcount b{color:var(--txt)}
+  .sort{padding:9px 14px}
+  footer{margin-top:44px;text-align:left}
+
+  @media(max-width:820px){
+    .layout{flex-direction:column}
+    .sidebar{position:static;width:100%;flex:none;display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center}
+    .sidebar h4{margin:0}
+    .sidebar select{width:auto}
+    .sidebar .btn{width:auto;margin-top:0}
+    .topbar{flex-wrap:wrap}
+    .topbar .search{order:3;flex:1 1 100%;max-width:none}
+  }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><span class="dot"></span>Sabor&nbsp;<span>Lima</span></div>
+  <div class="search">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ff6a13" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+    <input id="q" type="text" placeholder="Buscar restaurante, chef, plato o zona…">
+  </div>
+  <button class="btn gold" id="addBtn">＋ Agregar</button>
+</header>
+
+<div class="catstrip" id="catstrip"></div>
+
+<div class="wrap">
+  <div class="layout">
+    <aside class="sidebar">
+      <h4>Zona</h4>
+      <select id="zone"><option value="">Todas las zonas</option></select>
+      <h4>Precio</h4>
+      <select id="price">
+        <option value="">Todo precio</option>
+        <option value="$">$ · Económico</option>
+        <option value="$$">$$ · Medio</option>
+        <option value="$$$">$$$ · Alto</option>
+        <option value="$$$$">$$$$ · Alta cocina</option>
+      </select>
+      <h4>Filtros</h4>
+      <label class="chk"><input type="checkbox" id="fTrend"> 🔥 De moda en TikTok</label>
+      <label class="chk"><input type="checkbox" id="fFav"> ♥ Mis favoritos</label>
+      <button class="btn ghost" id="exportBtn">⬇ Exportar CSV</button>
+    </aside>
+
+    <main class="main">
+      <div class="main-head">
+        <div>
+          <h2 id="secTitle">Todos los restaurantes</h2>
+          <div class="subcount">Tenemos <b id="cnt">0</b> restaurantes disponibles</div>
+        </div>
+        <select id="sort" class="sort">
+          <option value="rec">Ordenar por: Recomendados</option>
+          <option value="trend">De moda primero</option>
+          <option value="az">Nombre: A–Z</option>
+          <option value="plow">Precio: menor a mayor</option>
+          <option value="phigh">Precio: mayor a menor</option>
+        </select>
+      </div>
+
+      <div id="results"></div>
+
+      <footer>
+        Datos recopilados de tendencias en TikTok y redes, El Comercio (Premios Somos), Latin America's 50 Best, The World's 50 Best, Tripadvisor y guías gastronómicas locales (2025–2026).<br>
+        Chefs, direcciones y precios son referenciales — conviene confirmar por redes antes de ir. Muchos huariques solo aceptan efectivo.
+      </footer>
+    </main>
+  </div>
+</div>
+
+<div class="modal-bg" id="modalBg">
+  <div class="modal">
+    <h2>Agregar restaurante</h2>
+    <label>Nombre</label><input id="m-name" placeholder="Ej. El Huarique de Ana">
+    <div class="row">
+      <div><label>Tipo</label><select id="m-cat"></select></div>
+      <div><label>Chef (opcional)</label><input id="m-chef" placeholder="Ej. Ana Torres"></div>
+    </div>
+    <div class="row">
+      <div><label>Zona / distrito</label><input id="m-zone" placeholder="Ej. Surco"></div>
+      <div><label>Precio</label><select id="m-price"><option>$</option><option>$$</option><option>$$$</option><option>$$$$</option></select></div>
+    </div>
+    <div class="row">
+      <div><label>Rango de precios</label><input id="m-range" placeholder="Ej. S/ 40–70 p/persona"></div>
+      <div><label>Dirección</label><input id="m-addr" placeholder="Calle y número"></div>
+    </div>
+    <label>Platos recomendados (separa con comas)</label><input id="m-dishes" placeholder="Ceviche mixto, Leche de tigre">
+    <label>¿Por qué se recomienda? / fuente</label><textarea id="m-why" rows="2" placeholder="Viral en TikTok por…"></textarea>
+    <label style="display:flex;align-items:center;gap:8px;margin-top:12px;cursor:pointer"><input type="checkbox" id="m-trend" style="width:auto"> 🔥 Está de moda en TikTok / redes</label>
+    <div class="modal-actions">
+      <button class="btn" id="mCancel">Cancelar</button>
+      <button class="btn gold" id="mSave">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const CATS = {
+  "Alta cocina":         {ic:"🍽️"},
+  "Cevichería":          {ic:"🐟"},
+  "Criolla":             {ic:"🥘"},
+  "Carnes / Parrilla":   {ic:"🥩"},
+  "Pollería / Anticucho":{ic:"🍗"},
+  "Nikkei / Japonesa":   {ic:"🍣"},
+  "Chifa":               {ic:"🥢"},
+  "Hamburguesas":        {ic:"🍔"},
+  "Buffet / Barra libre":{ic:"🍛"},
+  "Café / Postres":      {ic:"🍰"},
+  "Internacional":       {ic:"🌎"},
+  "Sanguchería":         {ic:"🥪"},
+  "Huarique":            {ic:"🍲"},
+};
+
+let DATA = [
+  // ---------- Alta cocina ----------
+  {n:"Maido", cat:"Alta cocina", chef:"Mitsuharu 'Micha' Tsumura", zone:"Miraflores", addr:"Calle San Martín 399", price:"$$$$", range:"S/ 750–1,000 (degustación)", trend:true, star:"#1 The World's 50 Best 2025",
+    dishes:["Nigiri de la casa","50 sabores (degustación)","Guiso de rabo nikkei","Chaufa de wagyu"],
+    why:"Cocina nikkei coronada como el mejor restaurante del mundo en 2025. El más viral en TikTok."},
+  {n:"Central", cat:"Alta cocina", chef:"Virgilio Martínez", zone:"Barranco", addr:"Av. Pedro de Osma 301", price:"$$$$", range:"S/ 900–1,200 (degustación)", trend:true, star:"Mejor del mundo 2023",
+    dishes:["Menú Mundo Mater","Diversidad de maíces","Extremo tallo"],
+    why:"Recorre los ecosistemas del Perú por altitud. Ícono absoluto de la alta cocina peruana."},
+  {n:"Kjolle", cat:"Alta cocina", chef:"Pía León", zone:"Barranco", addr:"Av. Pedro de Osma 301", price:"$$$$", range:"S/ 500–750", trend:true, star:"#2 Latin America's 50 Best 2025",
+    dishes:["Flor de causa","Cordero de los Andes","Postre de cacao amazónico"],
+    why:"De la chef Pía León, premiada por su hospitalidad. Producto peruano llevado al máximo."},
+  {n:"Mayta", cat:"Alta cocina", chef:"Jaime Pesaque", zone:"Miraflores", addr:"Av. La Mar 1285", price:"$$$$", range:"S/ 250–450", trend:false, star:"#11 Latin America's 50 Best",
+    dishes:["Tiradito de la casa","Pulpo al carbón","Degustación amazónica"],
+    why:"Técnica de vanguardia con insumos nativos poco conocidos del Perú."},
+  {n:"Astrid & Gastón", cat:"Alta cocina", chef:"Gastón Acurio", zone:"San Isidro", addr:"Casa Moreyra, Av. Paz Soldán 290", price:"$$$$", range:"S/ 250–500", trend:false, star:"Clásico de Gastón Acurio",
+    dishes:["Cuy pekinés","Ceviche de la casa","Menú Casa"],
+    why:"El restaurante emblema de Gastón Acurio, pionero de la revolución gastronómica peruana."},
+  {n:"Mérito", cat:"Alta cocina", chef:"Juan Luis Martínez", zone:"Barranco", addr:"Jr. 28 de Julio 206", price:"$$$", range:"S/ 180–300", trend:true, star:"#4 Latin America's 50 Best",
+    dishes:["Bao de rabo","Causa de la casa","Cordero"],
+    why:"Cocina venezolano-peruana joven y creativa, favorita de la crítica y de las redes."},
+  {n:"Cosme", cat:"Alta cocina", chef:"Ignacio Barrios", zone:"San Isidro", addr:"Calle El Virrey 700", price:"$$$", range:"S/ 120–200", trend:false, star:"#9 Latin America's 50 Best",
+    dishes:["Anticucho de pulpo","Ceviche cosme","Postres de autor"],
+    why:"Bistró contemporáneo con guiños peruanos; ambiente relajado y platos muy fotografiados."},
+
+  // ---------- Cevichería ----------
+  {n:"La Mar", cat:"Cevichería", chef:"Gastón Acurio", zone:"Miraflores", addr:"Av. La Mar 770", price:"$$$", range:"S/ 90–160", trend:true, star:"#26 Latin America's 50 Best",
+    dishes:["Ceviche clásico","Leche de tigre","Causa de pulpo","Arroz con mariscos"],
+    why:"La cebichería insignia de Gastón Acurio. Referencia obligada para ceviche de nivel."},
+  {n:"Canta Rana", cat:"Cevichería", chef:"Cocina familiar", zone:"Barranco", addr:"Génova 101", price:"$$", range:"S/ 40–70", trend:true, star:"Leyenda · +30 años",
+    dishes:["Ceviche mixto","Leche de tigre","Parihuela","Chicharrón de pescado"],
+    why:"Huarique histórico de Barranco reconocido en los Summum. Su ceviche mixto es el más famoso del barrio."},
+  {n:"Barra Maretazo", cat:"Cevichería", chef:"—", zone:"Miraflores", addr:"Calle Alcanfores 373", price:"$$", range:"S/ 40–65", trend:true, star:"#1 Tripadvisor",
+    dishes:["Ceviche del día","Jalea mixta","Chicharrón de pota"],
+    why:"Número uno en Tripadvisor por el sabor y la generosidad de las porciones. Muy comentado en redes."},
+  {n:"La Capitana", cat:"Cevichería", chef:"Angie Márquez", zone:"Pueblo Libre", addr:"Calle Santa Inés 102", price:"$$", range:"S/ 45–75", trend:true, star:"Premios Somos 2023",
+    dishes:["Ceviche de palta","Arroz con mariscos","Sudado de tramboyo"],
+    why:"Conquistó los Premios Somos con su ceviche de palta con pescado y plátanos."},
+
+  // ---------- Criolla ----------
+  {n:"Panchita", cat:"Criolla", chef:"Gastón Acurio", zone:"Miraflores", addr:"Calle 2 de Mayo 298", price:"$$$", range:"S/ 70–120", trend:true, star:"Mejor criolla · Premios Somos",
+    dishes:["Anticuchos (8 variedades)","Mancha Pecho","Ají de gallina","Cau cau"],
+    why:"Elegido mejor restaurante de comida criolla. Famoso por sus anticuchos a la parrilla."},
+  {n:"Huaca Pucllana", cat:"Criolla", chef:"Marilú Madueño", zone:"Miraflores", addr:"Calle General Borgoño cdra. 8 s/n", price:"$$$", range:"S/ 90–150", trend:true, star:"Vista a las ruinas",
+    dishes:["Lomo saltado","Seco de cordero","Ají de gallina"],
+    why:"Cocina criolla junto a un sitio arqueológico iluminado de noche. Muy buscado por TikTok y turistas."},
+  {n:"Bitute", cat:"Criolla", chef:"Cocina de barrio", zone:"Surquillo / Pueblo Libre", addr:"Sedes en Surquillo y Pueblo Libre", price:"$$", range:"S/ 30–55", trend:true, star:"Viral en TikTok",
+    dishes:["Sánguche de chicharrón","Tacu tacu","Cau cau","Combo criollo"],
+    why:"Uno de los locales más virales para comida criolla; porciones abundantes a buen precio."},
+
+  // ---------- Carnes / Parrilla ----------
+  {n:"Osso", cat:"Carnes / Parrilla", chef:"Renzo Garibaldi", zone:"La Molina", addr:"Calle Tahití 175", price:"$$$", range:"S/ 90–170", trend:true, star:"#44 Latin America's 50 Best",
+    dishes:["Carne madurada","Burger Osso","Costillas ahumadas","Embutidos de la casa"],
+    why:"Carnicería y parrilla referente en maduración de carnes en el Perú. Muy popular en redes."},
+  {n:"Paco Yonque", cat:"Carnes / Parrilla", chef:"—", zone:"Lima", addr:"Consultar por redes", price:"$$", range:"S/ 50–90", trend:true, star:"Recomendado en TikTok",
+    dishes:["Parrilla de entraña","Lomo fino","Langostinos al ajillo","Ensaladas"],
+    why:"Recomendado en redes como una de las mejores opciones de carne y parrilla en Lima."},
+
+  // ---------- Pollería / Anticucho ----------
+  {n:"Tori Pollería", cat:"Pollería / Anticucho", chef:"Mitsuharu Tsumura", zone:"San Isidro", addr:"Av. Conquistadores 1218", price:"$$", range:"S/ 45–80", trend:true, star:"Del chef de Maido",
+    dishes:["Pollo a la brasa","Anticuchos","Papas al hilo","Ají de la casa"],
+    why:"Pollería de autor de Mitsuharu Tsumura; eleva el clásico pollo a la brasa."},
+  {n:"Nicky's Chicken Prime", cat:"Pollería / Anticucho", chef:"—", zone:"Centro de Lima", addr:"Centro histórico", price:"$", range:"S/ 20–40", trend:true, star:"Viral · aguadito de cortesía",
+    dishes:["Pollo a la brasa","Aguadito de cortesía","Papas fritas"],
+    why:"Viral por su pollo crujiente y el aguadito de regalo. Muy buena relación precio-cantidad."},
+
+  // ---------- Chifa ----------
+  {n:"Casa de Sam Xian", cat:"Chifa", chef:"—", zone:"Centro de Lima", addr:"Cuadra 7 de Paruro (Barrio Chino)", price:"$", range:"S/ 15–35", trend:true, star:"Huarique de culto",
+    dishes:["Wantán frito","Arroz chaufa","Tallarín saltado","Sopa wantán"],
+    why:"Chifa huarique de culto en el Barrio Chino; se come muy rico por poco dinero."},
+  {n:"Buffet Mandarín", cat:"Chifa", chef:"—", zone:"San Borja", addr:"Av. Javier Prado Este 1860", price:"$$", range:"S/ 69.90–85 (buffet)", trend:true, star:"Buffet +50 platos",
+    dishes:["Buffet ilimitado","Chancho al horno","Dim sum","Postres chinos"],
+    why:"Buffet chifa con más de 50 platos. Popular en TikTok por la variedad ilimitada."},
+
+  // ---------- Huarique ----------
+  {n:"Real Kío (Mino)", cat:"Huarique", chef:"—", zone:"San Miguel", addr:"Jr. Cmdte. Espinar 240", price:"$", range:"S/ 15–30", trend:true, star:"Chicharronería clásica",
+    dishes:["Chicharrón de cerdo","Tamal","Pan con chicharrón","Camote frito"],
+    why:"Chicharronería clásica de San Miguel; desayuno criollo imperdible y económico."},
+  {n:"Narci Cocina Peruana", cat:"Huarique", chef:"—", zone:"Miraflores", addr:"Calle Narciso de la Colina 393", price:"$", range:"S/ 16–35", trend:true, star:"Menú desde S/16",
+    dishes:["Menú del día","Lomo saltado","Arroz con pollo","Entradas criollas"],
+    why:"Menú a S/16 en plena Miraflores; carta desde S/19.90. Viral por lo económico para la zona."},
+  {n:"Horneando Ando", cat:"Huarique", chef:"—", zone:"Barranco", addr:"Barranco", price:"$$", range:"S/ 40–70", trend:true, star:"Experiencia casera",
+    dishes:["Platos del día caseros","Postres horneados","Panes de la casa"],
+    why:"Experiencia íntima, como comer en casa de alguien. Recomendado en TikTok por su trato personal."},
+  {n:"Crudo Cocina", cat:"Huarique", chef:"—", zone:"Barranco", addr:"Barranco", price:"$$$", range:"S/ 90–150", trend:false, star:"Imprescindible en Barranco",
+    dishes:["Tiraditos","Crudos de pescado","Platos de temporada"],
+    why:"Pequeño restaurante peruano imprescindible en Barranco para amantes de la buena mesa."},
+
+  // ---------- Recomendados por Manu Rivera (@manuriverarios) ----------
+  {n:"Taberna Palacios", cat:"Criolla", chef:"Renzo Miñán", zone:"Miraflores", addr:"Miraflores", price:"$$", range:"S/ 60–110", trend:true, star:"Nuevo · viral en TikTok",
+    by:"Manu Rivera (@manuriverarios)", byUrl:"https://www.tiktok.com/@manuriverarios/video/7670309681071492360",
+    dishes:["Tapas peruanas","Arroz con pato","Tacu tacu","Vinos y cervezas de barril"],
+    why:"Taberna-bodega de Renzo Miñán (marca Festivo): cocina criolla y norteña con tapas y vinos a precio accesible."},
+  {n:"Parrilla Don Eduardo", cat:"Carnes / Parrilla", chef:"—", zone:"Miraflores", addr:"Av. Angamos Oeste 598", price:"$$$", range:"S/ 90–170", trend:true, star:"Bife campeón mundial 2025",
+    by:"Manu Rivera (@manuriverarios)", byUrl:"https://www.tiktok.com/@manuriverarios/video/7670309681071492360",
+    dishes:["Bife angosto (campeón mundial)","Res peruana de altura","Wagyu","Parrilla"],
+    why:"Parrilla que pone en valor la carne peruana; su bife angosto ganó el World Meat Championship 2025 en Buenos Aires."},
+  {n:"Contraste", cat:"Alta cocina", chef:"Angelo Aguado", zone:"Miraflores", addr:"Miraflores (nació en Surquillo)", price:"$$$", range:"S/ 120–220", trend:true, star:"Peruana contemporánea de autor",
+    by:"Manu Rivera (@manuriverarios)", byUrl:"https://www.tiktok.com/@manuriverarios/video/7670309681071492360",
+    dishes:["Tiradito de la casa","Cocina fusión peruana","Menú de autor","Bar de vinos"],
+    why:"Cocina peruana contemporánea con técnicas globales; cocina abierta pequeña con el chef siempre al frente."},
+  {n:"Merlín", cat:"Cevichería", chef:"Hans y Angie Gallardo", zone:"Miraflores", addr:"Av. Mariscal La Mar 1171", price:"$$$", range:"S/ 90–160", trend:true, star:"Pescados y mariscos de autor",
+    by:"Manu Rivera (@manuriverarios)", byUrl:"https://www.tiktok.com/@manuriverarios/video/7670309681071492360",
+    dishes:["Ceviche","Pescados y mariscos","Platos de la memoria norteña","Cocina de autor"],
+    why:"Cocina peruana sin etiquetas del chef Hans Gallardo y su hermana Angie; enfoque marino muy elogiado."},
+  {n:"Maras", cat:"Alta cocina", chef:"Miguel Pulache", zone:"San Isidro", addr:"San Isidro", price:"$$$", range:"S/ 150–280", trend:true, star:"Contra lo previsible",
+    by:"Manu Rivera (@manuriverarios)", byUrl:"https://www.tiktok.com/@manuriverarios/video/7670309681071492360",
+    dishes:["Conchas de Paracas","Ensaladilla de cangrejo","Tiraditos","Platos de temporada"],
+    why:"Cocina contemporánea del chef Miguel Pulache que se mueve entre registros, con producto peruano de estación."},
+
+  // ---------- Recomendados por Kev y Lore (@los.buenos.points) ----------
+  {n:"Menú", cat:"Alta cocina", chef:"Javier Miyasato y Diego Gutiérrez", zone:"Barranco", addr:"Bajada de los Baños 321", price:"$$$", range:"Consultar (carta de autor)", trend:true, star:"Nueva carta · viral en TikTok",
+    by:"Kev y Lore · Los buenos points (@los.buenos.points)", byUrl:"https://www.tiktok.com/@los.buenos.points/video/7661395142129077512",
+    dishes:["Nueva carta de temporada","Cocina de autor nikkei-fusión"],
+    why:"Restaurante de autor en Barranco de los chefs Javier Miyasato y Diego Gutiérrez; el video reseña su nueva carta."},
+  {n:"Trastevere", cat:"Internacional", chef:"—", zone:"Miraflores", addr:"Av. Mariscal La Mar 1263", price:"$$$", range:"S/ 70–140", trend:true, star:"Italiana · viral en TikTok",
+    by:"Kev y Lore · Los buenos points (@los.buenos.points)", byUrl:"https://www.tiktok.com/@los.buenos.points/video/7661395142129077512",
+    dishes:["Pastas clásicas","Cocina italiana tradicional","Recetas de la casa"],
+    why:"'Un pedacito de Italia en Lima': cocina italiana que respeta las recetas clásicas. Muy elogiado por el creador."},
+
+  // ---------- Recomendados por varios creadores (batch de links) ----------
+  {n:"Pálpito", cat:"Alta cocina", chef:"Luciano Saco", zone:"Surquillo", addr:"Narciso de la Colina 674, Surquillo", price:"$$$", range:"S/ 70–130", trend:true, star:"Cocina de Mollendo (Arequipa)",
+    by:"Mangiale (@mangiale__)", byUrl:"https://www.tiktok.com/@mangiale__/video/7651741584232353044",
+    dishes:["Perol mollendino (lapas con ocopa)","Queso helado con canela","Tocino del cielo","Cocina arequipeña de la costa"],
+    why:"Restaurante arequipeño del chef Luciano Saco que rescata la cocina de Mollendo; alta cocina, detalle y fusión."},
+  {n:"La Fondue", cat:"Internacional", chef:"—", zone:"San Isidro", addr:"Swissôtel Lima", price:"$$$", range:"S/ 100–180 (solo invierno)", trend:true, star:"Fondue suizo de temporada",
+    by:"Pablo (@pavlogger)", byUrl:"https://www.tiktok.com/@pavlogger/video/7652137979430898952",
+    dishes:["Fondue de queso","Fondue de Nutella","Raclette (parrilla suiza)","Tartar de trucha"],
+    why:"El fondue suizo del Swissôtel; solo abre en invierno de jueves a sábado. Reserva recomendada, se llena rápido."},
+  {n:"Qollota", cat:"Carnes / Parrilla", chef:"—", zone:"Barranco / Surco", addr:"Jr. San Ambrosio 400 (límite Barranco/Surco)", price:"$$$", range:"S/ 90–180", trend:true, star:"Parrilla de langosta",
+    by:"@restauranteqollota (cuenta oficial)", byUrl:"https://www.tiktok.com/@restauranteqollota/video/7670960977201859847",
+    dishes:["Parrilla Qollota con langosta","Risotto con langosta","Langosta a la parrilla","Arroz chiclayano con langosta"],
+    why:"Lleva la langosta a la parrilla: jugosa y ahumada al fuego, en varias versiones. Muy viral en TikTok."},
+  {n:"La Plaza Artesanal", cat:"Buffet / Barra libre", chef:"—", zone:"Miraflores / Los Olivos", addr:"Gral. Borgoño 245, Miraflores · Antúnez de Mayolo 1437, Los Olivos", price:"$$", range:"Barra libre premium", trend:true, star:"Barra libre premium",
+    by:"@laplazaartesanalentiktok (cuenta oficial)", byUrl:"https://www.tiktok.com/@laplazaartesanalentiktok/video/7647336430548651282",
+    dishes:["Pizzas artesanales","Pastas","Hamburguesas","Barra libre ilimitada"],
+    why:"Barra libre premium con pizzas artesanales, pastas y hamburguesas. Muy popular en Lima norte y Miraflores."},
+  {n:"The House Buffet", cat:"Buffet / Barra libre", chef:"—", zone:"San Isidro", addr:"Amador Merino Reyna 368, San Isidro", price:"$$", range:"Desayuno S/44.90 · Buffet S/59.90–69.90", trend:true, star:"Buffet desayuno y temático",
+    by:"Dónde está Ronald (@dondeestaronald)", byUrl:"https://www.tiktok.com/@dondeestaronald/video/7662950020525706516",
+    dishes:["Buffet desayuno ilimitado","Buffet temático diario","Opciones criollas","Fines de semana con música en vivo"],
+    why:"Único buffet desayuno en San Isidro con opciones criollas ilimitadas; además buffet temático por día."},
+  {n:"Los Primos de San Juan", cat:"Alta cocina", chef:"Alan Chamba, César y Héctor Hernández", zone:"Surquillo", addr:"José Manuel Iturregui 924, Surquillo", price:"$$$", range:"S/ 90–160", trend:true, star:"'Fine dining popular'",
+    by:"@ariannabhurtado", byUrl:"https://www.tiktok.com/@ariannabhurtado/video/7670775616806931742",
+    dishes:["Cebiche triciclo","Conchitas del tío Julio (mantequilla al mezcal)","Seco de María (sous vide)","Cocina de la calle elevada"],
+    why:"Nuevo género 'fine dining popular' (bautizado por Virgilio Martínez): la cocina de carretilla elevada con técnica. De ex mano derecha de Virgilio y Osterling."},
+  {n:"Señor Honey", cat:"Hamburguesas", chef:"—", zone:"Miraflores", addr:"Av. La Mar 1151, Miraflores", price:"$$", range:"S/ 30–60", trend:true, star:"Miel picante · viral",
+    by:"Enjoy Eat Lima (@enjoy_eat_lima)", byUrl:"https://www.tiktok.com/@enjoy_eat_lima/video/7669504091961281812",
+    dishes:["Oklahoney (dry aged con honey mayo)","Carbonara Burger (ternera madurada)","Smash Tacos al Pastor","Tamarindo Wings","Papas con miel y parmesano"],
+    why:"Hamburguesas con miel picante como protagonista; cortes dry aged y toques creativos. Muy comentado en TikTok."},
+  {n:"Baitén by Edo", cat:"Nikkei / Japonesa", chef:"—", zone:"Surco", addr:"Urban Plaza (C.C. El Polo), 2.º piso", price:"$$", range:"S/ 19–43", trend:true, star:"Nikkei de la marca Edo",
+    by:"Lima con Cafeína (@limaconcafeina)", byUrl:"https://www.tiktok.com/@limaconcafeina/video/7666149611173711112",
+    dishes:["Maki Truffle","Maki TNT","Hot Tuna","Volcano","Sushi nikkei"],
+    why:"Concepto nikkei de la reconocida marca Edo Sushi Bar; makis y sushi a precio accesible."},
+  {n:"Cioccolato", cat:"Café / Postres", chef:"—", zone:"Miraflores", addr:"Diez Canseco 493, Miraflores", price:"$$", range:"Postres y café", trend:true, star:"Pastelería · torta al pistacho",
+    by:"@cioccolato.pe (cuenta oficial)", byUrl:"https://www.tiktok.com/@cioccolato.pe/video/7658399204938665237",
+    dishes:["Torta Cioccolato al pistacho","Pastelería de autor","Café","Tortas por encargo"],
+    why:"Café y pastelería en Miraflores; su torta al pistacho se hizo viral. Se reserva por porciones o entera."},
+  {n:"Chacombo", cat:"Criolla", chef:"—", zone:"Barranco", addr:"Av. Francisco Bolognesi 895, Barranco", price:"$$$", range:"Consultar (propuesta de autor)", trend:true, star:"Criolla reinventada · viral",
+    by:"Kev y Lore · Los buenos points (@los.buenos.points)", byUrl:"https://www.tiktok.com/@los.buenos.points/video/7669552960795331847",
+    dishes:["Cocina criolla reinventada","Platos criollos de autor","Propuesta con técnica"],
+    why:"Cocina criolla reinventada con mucha técnica, respetando la calidad y el sabor de cada producto. Nuevo en Barranco."},
+  {n:"Gula", cat:"Criolla", chef:"—", zone:"Barranco", addr:"Av. Grau 149, Barranco", price:"$$$", range:"S/ 18–42 (platos)", trend:true, star:"Apertura sorpresa del año",
+    by:"Enjoy Eat Lima (@enjoy_eat_lima)", byUrl:"https://www.tiktok.com/@enjoy_eat_lima/video/7669504091961281812",
+    dishes:["Sánguche de Pejerrey El Rey","Tortitas de choclo con tartar de ceviche","Lomo Saltado 2.0","Papas bravas y calamares","Tamalito verde","Sour de Grau"],
+    why:"Nueva apertura en Barranco que sorprendió a los foodies: cocina peruana con giro contemporáneo y buena coctelería."},
+  {n:"Masa Sobre Mesa", cat:"Café / Postres", chef:"Renzo Ángeles", zone:"Miraflores", addr:"Arica 399, Miraflores", price:"$$", range:"S/ 20–45 (desayuno/brunch)", trend:true, star:"Masa madre & café de especialidad",
+    by:"Lima con Cafeína · Yoli Nieto (@limaconcafeina)", byUrl:"https://www.tiktok.com/@limaconcafeina/video/7666149611173711112",
+    dishes:["Pan de masa madre","Café de especialidad","Desayunos y brunch","Pizzas napolitanas"],
+    why:"Panadería de masa madre y café de especialidad en Miraflores (también pizzas napolitanas); muy recomendada para desayunar."},
+  {n:"Sátiro", cat:"Nikkei / Japonesa", chef:"Sebastián Vega", zone:"San Isidro", addr:"C. Sta. Luisa 295, San Isidro", price:"$$$$", range:"S/ 150–300", trend:true, star:"Scene restaurant · party dinner",
+    by:"Manu Rivera (@manuriverarios)", byUrl:"https://www.tiktok.com/@manuriverarios/video/7665728878001933586",
+    dishes:["Nikkei con cortes premium","Makis de autor","Platos para compartir","Barras y shows"],
+    why:"El 'scene restaurant' más ambicioso de Lima: nikkei con carnes premium en una casona de 1920, con arte, música y shows. Concepto party dinner."},
+  {n:"Amarcord", cat:"Internacional", chef:"—", zone:"Miraflores", addr:"Av. 28 de Julio 393, Miraflores", price:"$$$", range:"S/ 50–100", trend:true, star:"Trattoria italiana auténtica",
+    by:"Kev y Lore · Los buenos points (@los.buenos.points)", byUrl:"https://www.tiktok.com/@los.buenos.points/video/7514439093909130501",
+    dishes:["Pizza napolitana","Pastas frescas","Antipasti","Postres italianos"],
+    why:"Trattoria y pizzería italiana auténtica en Miraflores, ambientada como Nápoles; pizzas napolitanas muy elogiadas."},
+  {n:"Café Luna Nueva", cat:"Café / Postres", chef:"—", zone:"Barranco", addr:"Av. San Martín 149, Barranco", price:"$$", range:"S/ 40 aprox", trend:true, star:"Cafetería pet-friendly",
+    by:"Kev y Lore · Los buenos points (@los.buenos.points)",
+    dishes:["Café peruano","Cocina casera","Brunch","Postres"],
+    why:"Una de las cafeterías más lindas de Barranco, pet-friendly, con buen café peruano y cocina casera."},
+
+  // ---------- Recuperados de la tarea programada (correos + web) ----------
+  {n:"Rafael", cat:"Alta cocina", chef:"Rafael Osterling", zone:"Miraflores", addr:"Calle San Martín 300, Miraflores", price:"$$$$", range:"S/ 150–300", trend:true, star:"De Rafael Osterling",
+    dishes:["Cocina de autor","Pastas","Pescados","Postres"],
+    why:"El restaurante insignia del chef Rafael Osterling; cocina de autor refinada, un clásico contemporáneo de Miraflores."},
+  {n:"Chicho", cat:"Criolla", chef:"Augusto Baldoceda", zone:"Miraflores", addr:"Miraflores", price:"$$$", range:"S/ 60–120", trend:true, star:"Criollo de autor",
+    dishes:["Criollo de autor","Anticuchos","Guisos","Postres criollos"],
+    why:"Cocina criolla de autor del chef Augusto Baldoceda; sabores tradicionales con técnica moderna."},
+  {n:"Song", cat:"Chifa", chef:"Félix Loo", zone:"San Isidro", addr:"San Isidro", price:"$$$", range:"S/ 80–150", trend:true, star:"China auténtica",
+    dishes:["Cocina china auténtica","Dim sum","Pato","Platos para compartir"],
+    why:"Cocina china auténtica del chef Félix Loo en San Isidro, más allá del chifa clásico."},
+  {n:"Amankaya", cat:"Cevichería", chef:"—", zone:"Miraflores", addr:"Miraflores", price:"$$", range:"S/ 50–90", trend:true, star:"Cevigrill",
+    dishes:["Ceviches","Parrilla marina","Cevigrill","Arroces marinos"],
+    why:"Propuesta 'cevigrill' que combina cevichería y parrilla marina en Miraflores."},
+  {n:"Antigua Taberna Queirolo", cat:"Criolla", chef:"—", zone:"Pueblo Libre", addr:"Av. San Martín 1090, Pueblo Libre", price:"$$", range:"S/ 40–80", trend:true, star:"Clásico desde 1880",
+    dishes:["Sánguches criollos","Tacu tacu","Piscos","Piqueos"],
+    why:"Taberna histórica de Pueblo Libre (1880), templo del pisco y la comida criolla clásica limeña."},
+  {n:"Isidro Bistró", cat:"Alta cocina", chef:"—", zone:"San Isidro", addr:"San Isidro", price:"$$$", range:"S/ 80–150", trend:true, star:"Bistró de autor",
+    by:"Enjoy Eat Lima (@enjoy_eat_lima)",
+    dishes:["Bistró de autor","Platos de temporada","Cocina peruana contemporánea"],
+    why:"Bistró contemporáneo en San Isidro con cocina de autor; recomendado por Enjoy Eat Lima."},
+  {n:"The Observatory", cat:"Buffet / Barra libre", chef:"—", zone:"Miraflores", addr:"Belmond Miraflores Park, Malecón de la Reserva 1035", price:"$$$$", range:"S/ 200+", trend:true, star:"Buffet con vista al mar",
+    by:"Enjoy Eat Lima (@enjoy_eat_lima)",
+    dishes:["Buffet internacional","Brunch","Postres","Vista al mar"],
+    why:"Buffet del hotel Belmond Miraflores Park con vista panorámica al mar; brunch muy comentado."},
+  {n:"Tragaluz", cat:"Alta cocina", chef:"—", zone:"Miraflores", addr:"Belmond Miraflores Park, Malecón de la Reserva 1035", price:"$$$$", range:"S/ 150–280", trend:true, star:"Cocina de autor · vista al mar",
+    by:"Enjoy Eat Lima (@enjoy_eat_lima)",
+    dishes:["Cocina de autor","Pescados","Vista al mar"],
+    why:"Restaurante del Belmond Miraflores Park con cocina de autor y vista al mar."},
+  {n:"La Cabrera", cat:"Carnes / Parrilla", chef:"—", zone:"Miraflores", addr:"Miraflores", price:"$$$$", range:"S/ 120–250", trend:true, star:"Parrilla argentina",
+    by:"Enjoy Eat Lima (@enjoy_eat_lima)",
+    dishes:["Bife de chorizo","Mollejas","Guarniciones de la casa","Provoleta"],
+    why:"Parrilla argentina reconocida; cortes premium con la clásica variedad de guarniciones."},
+  {n:"Ensaltados", cat:"Criolla", chef:"—", zone:"Lima", addr:"Lima", price:"$$", range:"S/ 30–55", trend:true, star:"Especialistas en lomo saltado",
+    by:"Enjoy Eat Lima (@enjoy_eat_lima)",
+    dishes:["Lomo saltado","Saltados","Arroz chaufa","Tallarín saltado"],
+    why:"Especialistas en lomo saltado y salteados; sabor de wok criollo a buen precio."},
+  {n:"Shizen", cat:"Nikkei / Japonesa", chef:"—", zone:"San Isidro", addr:"Av. Los Conquistadores 999, San Isidro", price:"$$$", range:"S/ 80–150", trend:true, star:"Nikkei con raíces piuranas",
+    by:"@lapanzadearantxa",
+    dishes:["Chirashi ceviche","Udon uchucuta","Maki acevichado","Barra nikkei"],
+    why:"Barra nikkei con raíces piuranas; fusión creativa entre Japón y el norte peruano."},
+  {n:"Razeto Trattoria", cat:"Internacional", chef:"—", zone:"San Isidro", addr:"C. Ernesto Plascencia 359, San Isidro", price:"$$$", range:"S/ 60–120", trend:true, star:"Trattoria italiana",
+    by:"@lapanzadearantxa",
+    dishes:["Pastas caseras","Gnocchi","Lasaña de berenjena","Postres italianos"],
+    why:"Trattoria italiana en San Isidro con pastas caseras y clásicos como el gnocchi y la lasaña de berenjena."},
+  {n:"Gaijin Cocina Nikkei", cat:"Nikkei / Japonesa", chef:"—", zone:"San Isidro", addr:"Av. Petit Thouars 3660, San Isidro", price:"$$$", range:"S/ 70–130", trend:true, star:"Alternativa asequible a Maido",
+    by:"The Foodie Club (@the.foodie.club)",
+    dishes:["Ceviche de pulpo","Tiradito de ají amarillo","Tartare de toro","Makis"],
+    why:"Cocina nikkei elogiada como alternativa asequible a Maido; ceviches y tiraditos de autor."},
+  {n:"Hayaq", cat:"Cevichería", chef:"—", zone:"Surquillo", addr:"San Diego 365, Surquillo", price:"$$", range:"S/ 45–85", trend:true, star:"Cevichería de moda",
+    by:"@genteconfilo",
+    dishes:["Ceviches","Leche de tigre","Arroz con mariscos","Chicharrones marinos"],
+    why:"Cevichería viral en Surquillo; producto marino fresco y sabores potentes."},
+  {n:"Verbena", cat:"Alta cocina", chef:"Richi Goachet", zone:"San Isidro", addr:"Av. Conquistadores 396, San Isidro", price:"$$$", range:"S/ 90–160", trend:true, star:"De autor / mediterráneo",
+    by:"Manu Rivera (@manuriverarios)",
+    dishes:["Cocina de autor","Toques mediterráneos","Platos para compartir"],
+    why:"Propuesta de autor con acento mediterráneo en San Isidro; recomendada por Manu Rivera."},
+  {n:"Mandao", cat:"Chifa", chef:"—", zone:"Miraflores", addr:"Calle Cantuarias, Miraflores", price:"$$", range:"S/ 40–80", trend:true, star:"Dim sum y dumplings",
+    by:"Manu Rivera (@manuriverarios)",
+    dishes:["Dim sum","Dumplings","Bao","Fideos"],
+    why:"Especialistas en dim sum y dumplings en Miraflores; formato moderno y casual."},
+  {n:"Kulture", cat:"Café / Postres", chef:"—", zone:"San Borja", addr:"Av. Primavera 975, San Borja", price:"$$", range:"S/ 25–50", trend:true, star:"Café de especialidad",
+    by:"Lima con Cafeína (@limaconcafeina)",
+    dishes:["Café de especialidad","Brunch","Postres","Bowls"],
+    why:"Cafetería de especialidad en San Borja con buen brunch; recomendada por Lima con Cafeína."},
+  {n:"Yusha", cat:"Nikkei / Japonesa", chef:"—", zone:"Miraflores", addr:"Bolognesi 749, Miraflores", price:"$$$", range:"S/ 80–150", trend:true, star:"Nikkei",
+    by:"Pablo (@pavlogger)",
+    dishes:["Makis","Nigiri","Tiraditos","Cocina nikkei"],
+    why:"Barra nikkei en Miraflores con makis y tiraditos de autor; recomendada por @pavlogger."},
+  {n:"Mercattino", cat:"Sanguchería", chef:"—", zone:"Miraflores", addr:"Gral. Valera 596, Miraflores", price:"$", range:"S/ 18–35", trend:true, star:"Sanguchería",
+    by:"The Foodie Club (@the.foodie.club)",
+    dishes:["Sánguches","Chicharrón","Jamón del país","Piqueos"],
+    why:"Sanguchería viral en Miraflores; panes generosos y rellenos criollos."},
+  {n:"Asados Héctor", cat:"Sanguchería", chef:"—", zone:"Surco", addr:"Caminos del Inca 1496, Surco", price:"$", range:"S/ 18–35", trend:true, star:"Sánguches de asado",
+    by:"The Foodie Club (@the.foodie.club)",
+    dishes:["Sánguche de asado","Chicharrón","Pavo","Salsas de la casa"],
+    why:"Sangucheria de Surco famosa por sus sánguches de asado y chicharrón."},
+  {n:"Lima Focacceria", cat:"Sanguchería", chef:"—", zone:"Miraflores", addr:"Juan de la Fuente 383, Miraflores", price:"$$", range:"S/ 25–45", trend:true, star:"Focaccia italiana",
+    by:"@planes.pe",
+    dishes:["Focaccia","Sánguches en focaccia","Antipasti","Café"],
+    why:"Focaccería italiana en Miraflores; sánguches en focaccia recién horneada."},
+  {n:"Rossa", cat:"Internacional", chef:"—", zone:"San Isidro", addr:"Choquehuanca 601, San Isidro", price:"$$$", range:"S/ 70–130", trend:true, star:"Italiana",
+    by:"@lapanzadearantxa",
+    dishes:["Pizza","Pastas","Cocina italiana","Postres"],
+    why:"Restaurante italiano en San Isidro; pizzas y pastas en ambiente moderno."},
+  {n:"Maketto", cat:"Nikkei / Japonesa", chef:"Javier Miyasato", zone:"Miraflores", addr:"Av. Mariscal La Mar 830, Miraflores", price:"$$$", range:"S/ 90–170", trend:true, star:"Nikkei-asiático de Miyasato",
+    by:"@lapanzadearantxa",
+    dishes:["Cocina nikkei-asiática","Makis","Bao","Woks"],
+    why:"Propuesta nikkei-asiática del chef Javier Miyasato en la zona gastronómica de La Mar."},
+  {n:"Costanera 700", cat:"Cevichería", chef:"—", zone:"Miraflores", addr:"Av. Del Ejército 421, Miraflores", price:"$$$$", range:"S/ 120–220", trend:true, star:"Marino clásico",
+    by:"@lapanzadearantxa",
+    dishes:["Ceviches","Pescados y mariscos","Arroces marinos","Tiraditos"],
+    why:"Clásico marino de alta gama; pescados y mariscos con recetas tradicionales muy cuidadas."},
+  {n:"Vecino", cat:"Internacional", chef:"—", zone:"Barranco", addr:"Manco Cápac 270, Barranco", price:"$$", range:"S/ 45–90", trend:true, star:"Pizza de barrio",
+    by:"@lapanzadearantxa",
+    dishes:["Pizza","Antipasti","Cócteles","Vinos"],
+    why:"Pizzería-bar de barrio en Barranco; ambiente relajado y buenas pizzas."},
+  {n:"Almacén de Pizzas", cat:"Internacional", chef:"—", zone:"Varios locales", addr:"Varios locales en Lima", price:"$$", range:"S/ 40–80", trend:true, star:"Pizza · varios locales",
+    by:"@lapanzadearantxa",
+    dishes:["Pizza","Pastas","Ensaladas","Postres"],
+    why:"Cadena de pizzas al estilo argentino con varios locales en Lima; ambiente familiar."},
+  {n:"Pankos", cat:"Sanguchería", chef:"—", zone:"San Isidro", addr:"Dos de Mayo 455, San Isidro", price:"$", range:"S/ 18–35", trend:true, star:"Sánguches y hot dogs",
+    by:"@aldocomunica.pe",
+    dishes:["Sánguches","Hot dogs gourmet","Papas","Salsas de la casa"],
+    why:"Sanguchería casual en San Isidro con hot dogs gourmet y sánguches cargados."},
+
+  // ---------- Descubiertos vía web (patrulla 14-ago-2026 · TikTok bloqueado, sin correos nuevos) ----------
+  {n:"Isolina", cat:"Criolla", chef:"José del Castillo", zone:"Barranco", addr:"Prolongación San Martín 101, Barranco", price:"$$$", range:"S/ 60–120", trend:true, star:"Mejor cocina criolla · Summum 2025",
+    by:"Descubierto vía web · El Comercio / Summum (tarea programada)",
+    dishes:["Guisos criollos para compartir","Lengua guisada","Escabeche","Postres caseros"],
+    why:"Taberna criolla emblemática de José del Castillo (homenaje a su madre Isolina Vargas); porciones generosas al centro. Elegida mejor cocina criolla en los Summum 2025. También tiene sede en Surco."},
+  {n:"Casa Tambo", cat:"Criolla", chef:"Christian Cotrina", zone:"Centro de Lima", addr:"Jr. de la Unión 1066, Cercado de Lima", price:"$$$", range:"Consultar", trend:true, star:"Casona patrimonial · Centro de Lima",
+    by:"Descubierto vía web · El Comercio (tarea programada)",
+    dishes:["Causas (6 variedades)","Conchas de abanico con ají amarillo","Cebiche norteño con tortitas de choclo","Pulpo y langostinos al Josper"],
+    why:"Restaurante criollo-contemporáneo dentro de una casona patrimonial recuperada en el Centro de Lima, con cafetería, restaurante Plaza Mercado y un bar de estilo inglés. Muy fotografiado; 35% de la carta sale del Josper."},
+  {n:"Taio", cat:"Internacional", chef:"Hugo García", zone:"Surco", addr:"Av. El Polo 763, Santiago de Surco", price:"$$$", range:"S/ 24–60", trend:true, star:"De Hugo García · viral en redes",
+    by:"Descubierto vía web · La República / Perú21 (tarea programada)",
+    dishes:["Tostada de straciatella","Salmón glaseado","Tataki de atún","Lomo Taio","Lasaña boloñesa con pesto"],
+    why:"Restaurante de cocina fusión del exchico reality Hugo García, en el exclusivo El Polo de Surco; ambiente cuidado y muy comentado en redes. Desayunos desde S/18 y platos de fondo desde S/38."},
+
+  // ---------- Patrulla 15-ago-2026 · correos "Sabor Lima" (links de TikTok) ----------
+  {n:"Rocco", cat:"Internacional", chef:"Rafael Osterling / Rodrigo Alzamora", zone:"Miraflores", addr:"Calle Colón 501, Miraflores", price:"$$$", range:"S/ 70–140", trend:true, star:"Mejor Nuevo Restaurante · Summum 2024",
+    by:"The Foodie Club (@the.foodie.club)", byUrl:"https://www.tiktok.com/@the.foodie.club/video/7646107300775611670",
+    dishes:["Pizza Joselito","Pappardelle Lombardo con ragú de asado de tira","Tonno tonnato","Milanesa arrabiata"],
+    why:"Moderna trattoria de Rafael Osterling (con Rodrigo Alzamora y Lukas Sifuentes); ganó Mejor Nuevo Restaurante en los Summum 2024. Pizzas y pastas italianas con guiños de otras cocinas."},
+  {n:"Casa Sarao", cat:"Internacional", chef:"Jorge Muñoz", zone:"San Isidro", addr:"Av. Las Begonias 457 (Paseo Begonias), San Isidro", price:"$$$", range:"S/ 55–70 (platos para compartir)", trend:true, star:"Taberna española · chef estrella Michelin",
+    by:"The Foodie Club (@the.foodie.club)", byUrl:"https://www.tiktok.com/@the.foodie.club/video/7646107300775611670",
+    dishes:["Pulpo a la gallega","Gambas al ajillo","Cebiche de conchas","Croquetas cremosas","Tortilla española"],
+    why:"Taberna española contemporánea del chef Jorge Muñoz (estrella Michelin con Pakta en Barcelona); tapeo ibérico con alma peruana en el centro empresarial de San Isidro."},
+  {n:"Dhaasu", cat:"Internacional", chef:"—", zone:"Miraflores", addr:"Av. Mariscal La Mar 1167, Miraflores", price:"$", range:"S/ 20–70", trend:true, star:"Primer street food indio del Perú",
+    by:"The Foodie Club (@the.foodie.club)", byUrl:"https://www.tiktok.com/@the.foodie.club/video/7646107300775611670",
+    dishes:["Butter Chicken","Chicken Tikka Masala","Paneer Tikka Masala","Daal Makhani"],
+    why:"Primer concepto de comida callejera de la India en el Perú y Latinoamérica: cocina india rápida y económica de Delhi, con cocina abierta y ambiente amable en La Mar."},
+  {n:"Testeo", cat:"Alta cocina", chef:"Carlos Testino", zone:"Surquillo", addr:"Sta. Rosa 259, Surquillo", price:"$$$", range:"S/ 60–130", trend:true, star:"Nueva joya de Surquillo · de autor",
+    by:"Alonso Salvador (@alonsosalvador3)", byUrl:"https://www.tiktok.com/@alonsosalvador3/video/7660983347660868882",
+    dishes:["Croquetas rellenas de picaña (fuera de carta)","Cocina de autor mediterránea-nikkei-peruana","Platos del día"],
+    why:"El regreso del chef Carlos Testino (ex Lima 27): un taller gastronómico que corrige y reinventa platos mezclando lo mediterráneo, nikkei y peruano, según lo que ofrece la despensa del día."},
+  {n:"Carmelitas", cat:"Sanguchería", chef:"—", zone:"Miraflores", addr:"Av. 28 de Julio 1328, Miraflores", price:"$$", range:"S/ 25–45", trend:true, star:"Panadería clásica de Miraflores",
+    by:"The Foodie Club (@the.foodie.club)", byUrl:"https://www.tiktok.com/@the.foodie.club/video/7666875203384904982",
+    dishes:["Sánguche de jamón glaseado","Desayuno casero","Panes de la casa","Jamones al peso"],
+    why:"Panadería-sanguchería de barrio en Miraflores famosa por su jamón glaseado y sus desayunos caseros; parada obligada en la ruta del mejor sánguche de Lima."},
+  {n:"Pandilla", cat:"Sanguchería", chef:"Beno", zone:"Miraflores", addr:"Elías Aguirre 277, Miraflores", price:"$$", range:"S/ 22–30", trend:true, star:"Taller de sánguches · viral",
+    by:"The Foodie Club (@the.foodie.club)", byUrl:"https://www.tiktok.com/@the.foodie.club/video/7666875203384904982",
+    dishes:["Panchito Villa","Roast Beef (S/28)","Buti de Lima (S/22)","Rey Misterio"],
+    why:"Sanguchería-taller del comunicador 'Beno': carta corta de seis sánguches, embutidos y salsas hechos en casa. Muy viral por sus panes generosos y contundentes."},
+  {n:"La Preferida", cat:"Sanguchería", chef:"—", zone:"Miraflores", addr:"Calle Julián Arias Aragüez 698, Miraflores", price:"$", range:"S/ 18–40", trend:true, star:"Nominada Premios Somos 2026",
+    by:"The Foodie Club (@the.foodie.club)", byUrl:"https://www.tiktok.com/@the.foodie.club/video/7666875203384904982",
+    dishes:["Pan con pejerrey especial","Sánguches criollos","Pescados y mariscos","Piqueos marinos"],
+    why:"Sanguchería-cevichería clásica de Miraflores; su pan con pejerrey es célebre y la llevó a ser nominada a mejor sánguche en los Premios Somos 2026. Varias sedes."},
+  {n:"La Cantina di Epicuro", cat:"Internacional", chef:"Marco (Génova)", zone:"Miraflores", addr:"Av. Grau 158, Miraflores", price:"$$$", range:"S/ 70–140", trend:true, star:"Italiana en casona histórica",
+    by:"Jose Daniel · Vino con JDC (@vinoconjdc)",
+    dishes:["Risotto","Carpaccio","Pastas frescas","Vitello tonnato","Tiramisú"],
+    why:"'Probablemente la experiencia más italiana de Lima': trattoria en una casona restaurada de Miraflores, del genovés Marco, con pastas frescas, risottos y clásicos italianos."},
+
+  // ---------- Patrulla 16-ago-2026 · correos "Sabor Lima" (ruta hamburguesera @lapanzadearantxa) ----------
+  {n:"Boycott", cat:"Hamburguesas", chef:"—", zone:"Surco / Miraflores", addr:"Av. La Encalada 975, Surco · Av. Mariscal Cáceres 270, Miraflores", price:"$$", range:"S/ 20–40", trend:true, star:"Mejor Hamburguesa · Premios Somos 2025",
+    by:"La Panza de Arantxa (@lapanzadearantxa)", byUrl:"https://www.tiktok.com/@lapanzadearantxa/video/7667373896672267540",
+    dishes:["Oklahoma Caramel","Wisconsin Fire","Hot BBQ Bacon","Onion Rings","Fries Beef Overload"],
+    why:"Ganó Mejor Hamburguesa en los Premios Somos 2025 y volvió a ser nominada en 2026; smash burgers con toques dulces (caramel, shoyu). Aparece en la ruta hamburguesera de La Panza de Arantxa."},
+  {n:"La Cristina", cat:"Café / Postres", chef:"—", zone:"San Isidro", addr:"Calle Coronel Odriozola 190, San Isidro", price:"$$", range:"S/ 25–50", trend:true, star:"Bakery & brunch · smash burger en croissant",
+    by:"La Panza de Arantxa (@lapanzadearantxa)", byUrl:"https://www.tiktok.com/@lapanzadearantxa/video/7667373896672267540",
+    dishes:["Smash burger doble en pan de croissant","Croissants artesanales","Brunch","Postres"],
+    why:"Bakery pet-friendly de San Isidro famosa por sus croissants y su brunch; en la ruta hamburguesera destaca su smash burger doble con pan de croissant y alioli de cebolla caramelizada."},
+
+  // ---------- Patrulla 17-ago-2026 · correos "Sabor Lima" (links de TikTok) ----------
+  {n:"DanSa", cat:"Criolla", chef:"Corp. E.Wong", zone:"Lince", addr:"Av. Rivera Navarrete 2692, Lince", price:"$$$", range:"US$ 77–100 (cena-show · menú Wanaak, 9 tiempos)", trend:true, star:"Cena-show inmersiva · danzas del Perú",
+    by:"Kev y Lore · Los buenos points (@los.buenos.points)", byUrl:"https://www.tiktok.com/@los.buenos.points/video/7674014105258233096",
+    dishes:["Menú Wanaak (9 tiempos)","Ceviche","Juane de pato con tacacho","Coctelería de autor"],
+    why:"Experiencia de comida inmersiva de la Corporación E.Wong en Lince (desde 2025): menú degustación de las regiones del Perú con show de danzas de costa, sierra y selva. Renovó por completo su cena y espectáculo (menú Wanaak, 9 tiempos); abre de miércoles a sábado."},
+  {n:"El Palacio del Sancochado", cat:"Criolla", chef:"Juan Ruggiero", zone:"Centro de Lima", addr:"Av. 28 de Julio 990, Cercado de Lima", price:"$$", range:"S/ 40–60 aprox", trend:true, star:"Sancochado limeño · +30 años",
+    by:"El Palacio del Sancochado (cuenta oficial)", byUrl:"https://www.tiktok.com/@elpalaciodelsancochado/video/7656878919970213141",
+    dishes:["Sancochado limeño","Caldo de res y verduras","Choclo, camote y yuca","Postres criollos"],
+    why:"Templo del sancochado limeño en el Centro de Lima; Juan Ruggiero lleva más de 30 años sirviendo este guiso tradicional. Abre de lunes a domingo al mediodía."},
+  {n:"Los Criollos", cat:"Criolla", chef:"—", zone:"Miraflores", addr:"Calle Porta 184, Miraflores", price:"$$", range:"S/ 15–55", trend:true, star:"Huarique criollo · desde S/15",
+    by:"Ramiro Arribasplata (@ramiroarribasplata)", byUrl:"https://www.tiktok.com/@ramiroarribasplata/video/7653138443601448210",
+    dishes:["Dúo de la abuela","Carapulcra con sopa seca","Papa a la huancaína","Menestrón"],
+    why:"Nuevo huarique de comida criolla a pasos del parque Kennedy (Miraflores), con platos bien servidos desde S/15 y estacionamiento propio. La carne, muy elogiada. Recomendado por Ramiro Arribasplata."},
+  {n:"El Huarique del Chalaco", cat:"Huarique", chef:"—", zone:"Los Olivos", addr:"Foros Mz. 170, Los Olivos", price:"$", range:"Platos desde S/ 12", trend:true, star:"Huarique económico · viral en TikTok",
+    by:"Coco Cocina (@cocococina.pe)", byUrl:"https://www.tiktok.com/@cocococina.pe/video/7674012143028587797",
+    dishes:["Ceviche","Platos criollos","Menú económico"],
+    why:"Huarique de Los Olivos con platos desde S/12; cevichería y comida casera a precio de barrio. Recomendado por Coco Cocina."},
+
+  // ---------- Patrulla 18-ago-2026 · correos "Sabor Lima" (nuevo creador @foodiecromatico) ----------
+  {n:"Wayra Gastro Mar", cat:"Cevichería", chef:"—", zone:"Pueblo Libre", addr:"Av. Mariano Cornejo 2117, Pueblo Libre", price:"$$", range:"S/ 30–70 (platos S/17–39)", trend:true, star:"Comida marina · joyita de Pueblo Libre",
+    by:"Foodiecromático (@foodiecromatico)", byUrl:"https://www.tiktok.com/@foodiecromatico/video/7654623517731802386",
+    dishes:["Ceviche a la brasa","Conchitas anticucheras","Tartar Don Julio","Arroz meloso norteño","Tiradito Paracas","Tortitas de choclo acevichadas"],
+    why:"Resto-mar 'joyita escondida' a dos cuadras de la PUCP/Cato en Pueblo Libre: clásicos marinos con toque de autor y buena atención. Espacio pequeño, conviene reservar. Abre de martes a domingo de 12 a 4:30 pm."},
+  {n:"Quinto Arrecife", cat:"Cevichería", chef:"—", zone:"Surquillo", addr:"Jr. Luis Varela y Orbegoso 555, Surquillo", price:"$$", range:"S/ 30–55 (platos S/29–50)", trend:true, star:"Cevichería de barrio · Surquillo",
+    by:"Foodiecromático (@foodiecromatico)", byUrl:"https://www.tiktok.com/@foodiecromatico/video/7662911040375491858",
+    dishes:["Ceviche de pescado","Wantanes de cangrejo","Pulpo a la parrilla","Pulpo al olivo","Arroz norteño de mariscos","Conchas negras"],
+    why:"Cevichería 'point escondido' en Surquillo donde se come rico todo el año; marino fresco y contundente, con promo de chilcanos 2x1. Recomendada por Foodiecromático; abre casi todos los días de 11:30 am a 4:45 pm."},
+
+  // ---------- Patrulla 18-ago-2026 (revisión) · correos "Sabor Lima" en hilo con no leídos ----------
+  {n:"Plancha Criolla y Teppanyaki", cat:"Criolla", chef:"—", zone:"Pueblo Libre", addr:"Av. San Martín 1340, Pueblo Libre", price:"$$$", range:"S/ 60–120 (platos S/30–59)", trend:true, star:"Carta criolla + show teppanyaki",
+    by:"Giuls (@giuliannasoriano)", byUrl:"https://www.tiktok.com/@giuliannasoriano/video/7665705900765760789",
+    dishes:["Tiradito de pulpo y calamar en rocoto ahumado","Causas crocantes de langostinos","Arroz meloso con pato","Fetuccinis a la huancaína","Frejoles con cabrito"],
+    why:"Concepto único en Pueblo Libre: carta criolla preparada al estilo teppanyaki, con show frente al comensal. Plan diferente para ir en pareja, amigos o familia. Recomendado por la creadora Giuls (@giuliannasoriano)."},
+  {n:"Panhaus", cat:"Café / Postres", chef:"—", zone:"Miraflores", addr:"Av. Santa Cruz 1305, Miraflores", price:"$$", range:"S/ 15–40 (postres y panadería)", trend:true, star:"Panadería · postres aesthetics",
+    by:"@panhaus.pe (cuenta oficial)", byUrl:"https://www.tiktok.com/@panhaus.pe/video/7664390142815161607",
+    dishes:["Postres aesthetics","Croissants","Turrón artesanal","Panes de la casa"],
+    why:"Panadería-pastelería viral en Miraflores por sus postres 'aesthetics', croissants y turrón artesanal peruano. Muy comentada en TikTok."},
+  {n:"Momo", cat:"Nikkei / Japonesa", chef:"—", zone:"San Isidro", addr:"Av. Camino Real 1260, San Isidro", price:"$$$", range:"Consultar (reservas en momo.pe)", trend:true, star:"Nuevo nikkei en San Isidro",
+    by:"Valefloodie (@valefloodie)", byUrl:"https://www.tiktok.com/@valefloodie/video/7658836163188231431",
+    dishes:["Makis de autor","Nigiris","Tiraditos","Cocina nikkei"],
+    why:"Nuevo restaurante nikkei en San Isidro (Av. Camino Real 1260), con reservas por su web momo.pe. Apertura reciente muy comentada por foodies en TikTok."},
+
+  // ---------- Patrulla 18-ago-2026 (carga semanal) · sin correos nuevos; descubiertos vía web (TikTok requiere selección de navegador, no disponible en modo autónomo) ----------
+  {n:"Rastro", cat:"Alta cocina", chef:"Luciano Saco", zone:"Miraflores", addr:"Alfonso Ugarte 363, Miraflores", price:"$$$", range:"S/ 80–160 (carta de 15 platos)", trend:true, star:"De autor · porciones generosas",
+    by:"Descubierto vía web · El Comercio / Tripadvisor (tarea programada)",
+    dishes:["Snacks de la casa","Entradas de autor","Fondos peruanos","Postres"],
+    why:"Nuevo restaurante de autor del chef Luciano Saco (también de Pálpito) en Miraflores: carta corta de 15 platos con porciones generosas que reinventa la cocina peruana. Muy comentado en TikTok."},
+  {n:"Fernandini", cat:"Alta cocina", chef:"Rodrigo Fernandini", zone:"Barranco", addr:"Sánchez Carrión 112, Barranco", price:"$$$$", range:"S/ 520 (degustación 10 tiempos)", trend:true, star:"Fine dining · debut del chef en Lima",
+    by:"Descubierto vía web · El Comercio / Horeca (tarea programada)",
+    dishes:["Menú degustación de 10 tiempos","Fermentaciones y tubérculos ancestrales","Insumos amazónicos","Carnes curadas"],
+    why:"Primer restaurante en Lima del chef mediático Rodrigo Fernandini (del Artesano en Nueva York): fine dining en una casona de Barranco con un menú degustación que recorre costa, sierra y selva."},
+  {n:"Jolgorio", cat:"Criolla", chef:"Franco Ferreyra", zone:"San Isidro", addr:"Av. Los Conquistadores 1250, San Isidro", price:"$$", range:"S/ 45–90", trend:true, star:"Comedor criollo con música en vivo",
+    by:"Descubierto vía web · Perú21 / Diario Correo (tarea programada)",
+    dishes:["Carapulcra con sopa seca","Cau cau","Mondonguito a la italiana","Ají de gallina","Arroz con chancho"],
+    why:"Comedor criollo del chef Franco Ferreyra en San Isidro que revive la cocina peruana de antaño con música criolla en vivo; almuerzos familiares tradicionales convertidos en celebración."},
+  {n:"Bravura Cevichería", cat:"Cevichería", chef:"—", zone:"Miraflores", addr:"Calle Berlín, Miraflores", price:"$$", range:"S/ 45–85", trend:true, star:"4.8★ Tripadvisor · marino fresco",
+    by:"Descubierto vía web · Tripadvisor (tarea programada)",
+    dishes:["Ceviche clásico","Causa limeña","Tiradito","Arroz con mariscos"],
+    why:"Cevichería viral de Miraflores muy bien calificada en Tripadvisor (4.8★); pescados y mariscos frescos con recetas peruanas clásicas."},
+
+  // ---------- Patrulla 19-ago-2026 (carga semanal) · 2 correos "Sabor Lima" procesados con Chrome (Browser 1): (1) @the.foodie.club → Verbena (ya estaba en la lista; se completó el chef Richi Goachet); (2) @palomaguinand → Kobe (NUEVO, abajo). Además 4 restaurantes descubiertos y verificados vía WebSearch ----------
+  {n:"Kobe", cat:"Nikkei / Japonesa", chef:"Carolina Uechi", zone:"San Isidro", addr:"Av. Los Conquistadores 170, San Isidro", price:"$$$", range:"S/ 90–170", trend:true, star:"Nikkei de brasas · Kobe beef",
+    by:"Paloma Guinand (@palomaguinand)", byUrl:"https://www.tiktok.com/@palomaguinand/video/7670704467842534664",
+    dishes:["Cortes Kobe / wagyu a las brasas","Nigiris de autor","Makis nikkei","Tiraditos"],
+    why:"Nikkei de brasas de la chef Carolina Uechi en San Isidro; carnes premium tipo Kobe/wagyu al fuego con técnica japonesa. Reseñado como 'nuevo restaurante favorito' por @palomaguinand y muy viral en TikTok."},
+  {n:"Moussa", cat:"Café / Postres", chef:"—", zone:"Consultar", addr:"Consultar (ver @Moussa en TikTok/Instagram)", price:"$", range:"Consultar", trend:true, star:"Postres personalizables · toppings a elección",
+    by:"Paloma Guinand (@palomaguinand)", byUrl:"https://www.tiktok.com/@palomaguinand/video/7661805832006389000",
+    dishes:["Postres armables","Toppings a elección","Base + coberturas personalizadas"],
+    why:"Postrería donde armas tu postre eligiendo todos los toppings que quieras; @palomaguinand lo recomendó en su 'taste test'. Dirección por confirmar en sus redes."},
+  {n:"Conquistador Taberna", cat:"Criolla", chef:"—", zone:"Centro de Lima", addr:"Pasaje Nicolás de Ribera 'El Viejo' 137-141, Centro de Lima", price:"$$", range:"Entradas desde S/12 · fondos desde S/26", trend:true, star:"Taberna criolla · shows en vivo",
+    by:"Descubierto vía web · El Comercio / Instagram @conquistador.taberna (tarea programada)",
+    dishes:["Comida criolla limeña","Fondos tradicionales","Piqueos","Shows criollos en vivo (sábados)"],
+    why:"Nueva taberna peruana en el Centro histórico que evoca la Lima de antaño; cocina criolla accesible con música y shows en vivo los sábados. Muy comentada en TikTok."},
+  {n:"Brando's", cat:"Sanguchería", chef:"—", zone:"Miraflores", addr:"Av. Santa Cruz 978, Miraflores", price:"$$", range:"S/ 25–50", trend:true, star:"Diner americano · sánguches y matcha",
+    by:"Descubierto vía web · TikTok (tarea programada)",
+    dishes:["Sánguches de autor","Café de especialidad","Matcha","Booths estilo diner"],
+    why:"Nuevo local estilo diner americano en Miraflores para sánguches, café y matcha, con booths retro muy fotografiables. Viral en TikTok."},
+  {n:"Pomakora", cat:"Cevichería", chef:"—", zone:"Magdalena del Mar", addr:"Jr. Tacna 924, Magdalena del Mar", price:"$$$", range:"S/ 60–120", trend:true, star:"Cocina chiclayana / norteña",
+    by:"Descubierto vía web · El Comercio (tarea programada)",
+    dishes:["Ceviches con chinguirito","Cabrito norteño","Sudados y guisos chiclayanos","Ceviches al fuego"],
+    why:"Restaurante de cocina norteña chiclayana en Magdalena (nombre del bosque de Pómac + 'kora', abundancia en quechua): ceviches, cabrito y guisos del norte llevados al paladar limeño."},
+  {n:"Hollyfood (zona Ghibli)", cat:"Hamburguesas", chef:"—", zone:"La Molina", addr:"Av. La Molina 1102, La Molina", price:"$$", range:"Burgers S/35.50 · ramen S/25", trend:true, star:"Temático anime / Studio Ghibli",
+    by:"Descubierto vía web · TikTok / Facebook (tarea programada)",
+    dishes:["Hamburguesas temáticas","Ramen clásico","Bebida Totoro","Ambientación Ghibli (Totoro, Gatobús)"],
+    why:"Zona temática inspirada en Studio Ghibli dentro de Hollyfood La Molina: hamburguesas y ramen en un espacio con Totoro y el Gatobús. Viral en TikTok por lo fotografiable. Abre solo fin de semana."},
+];
+
+let activeCat = "";
+let onlyFav = false;
+let onlyTrend = false;
+const favs = new Set();
+
+function buildStrip(){
+  const el=document.getElementById('catstrip');
+  el.innerHTML='';
+  el.appendChild(mkTile('🍽️','Todos','',['#ff6a13','#ff9a4d']));
+  Object.keys(CATS).forEach(c=>el.appendChild(mkTile(CATS[c].ic,c,c,CATCOLORS[c]||['#ff6a13','#ff9a4d'])));
+}
+function mkTile(ic,label,val,col){
+  const b=document.createElement('button');
+  b.className='cattile'+(activeCat===val?' on':'');
+  b.innerHTML=`<span class="circle" style="background:linear-gradient(135deg,${col[0]},${col[1]})">${ic}</span><span class="clabel">${label}</span>`;
+  b.onclick=()=>{activeCat=val;buildStrip();render();window.scrollTo({top:0,behavior:'smooth'});};
+  return b;
+}
+function buildZones(){
+  const z=[...new Set(DATA.map(r=>r.zone))].sort();
+  document.getElementById('zone').innerHTML='<option value="">Todas las zonas</option>'+z.map(x=>`<option>${x}</option>`).join('');
+  document.getElementById('m-cat').innerHTML=Object.keys(CATS).map(c=>`<option>${c}</option>`).join('');
+}
+
+const resEl=document.getElementById('results');
+function render(){
+  const q=document.getElementById('q').value.toLowerCase().trim();
+  const zone=document.getElementById('zone').value;
+  const price=document.getElementById('price').value;
+  const onlyTrend=document.getElementById('fTrend').checked;
+  const onlyFav=document.getElementById('fFav').checked;
+  const sort=document.getElementById('sort').value;
+
+  let list=DATA.filter(r=>{
+    if(activeCat && r.cat!==activeCat) return false;
+    if(zone && r.zone!==zone) return false;
+    if(price && r.price!==price) return false;
+    if(onlyFav && !favs.has(r.n)) return false;
+    if(onlyTrend && !r.trend) return false;
+    if(q){
+      const hay=(r.n+' '+r.zone+' '+r.cat+' '+r.chef+' '+(r.by||'')+' '+r.dishes.join(' ')+' '+r.why).toLowerCase();
+      if(!hay.includes(q)) return false;
+    }
+    return true;
+  });
+
+  const pv=p=>(p||'').length;
+  if(sort==='az') list.sort((a,b)=>a.n.localeCompare(b.n));
+  else if(sort==='plow') list.sort((a,b)=>pv(a.price)-pv(b.price));
+  else if(sort==='phigh') list.sort((a,b)=>pv(b.price)-pv(a.price));
+  else if(sort==='trend') list.sort((a,b)=>(b.trend?1:0)-(a.trend?1:0));
+
+  document.getElementById('secTitle').innerHTML = activeCat ? ((CATS[activeCat]||{}).ic||'')+' '+activeCat : 'Todos los restaurantes';
+  document.getElementById('cnt').textContent=list.length;
+  resEl.innerHTML='';
+  if(!list.length){resEl.innerHTML='<div class="empty">No hay resultados con esos filtros 🍽️</div>';return;}
+  const grid=document.createElement('div');
+  grid.className='grid';
+  list.forEach(r=>grid.appendChild(card(r)));
+  resEl.appendChild(grid);
+}
+
+const CATCOLORS={
+  "Alta cocina":["#c8901a","#eab84a"],
+  "Cevichería":["#0092b8","#39c3e0"],
+  "Criolla":["#d2691e","#f0a24e"],
+  "Carnes / Parrilla":["#b23b3b","#e06b63"],
+  "Pollería / Anticucho":["#c0562b","#e8843f"],
+  "Nikkei / Japonesa":["#c1272d","#e2585d"],
+  "Chifa":["#b8253a","#e04b5f"],
+  "Hamburguesas":["#b5651d","#e0a04a"],
+  "Buffet / Barra libre":["#5f9a3c","#8fc45c"],
+  "Café / Postres":["#9c6b4a","#c99a72"],
+  "Internacional":["#3b6ea5","#69a0d6"],
+  "Sanguchería":["#c98a3a","#e6b060"],
+  "Huarique":["#7a5230","#ab7c4c"]
+};
+function card(r){
+  const el=document.createElement('div');
+  el.className='card';
+  const isFav=favs.has(r.n);
+  const ic=(CATS[r.cat]||{}).ic||'🍽️';
+  const c=CATCOLORS[r.cat]||["#ff6a13","#ff9a4d"];
+  el.innerHTML=`
+    <div class="banner" style="background:linear-gradient(135deg,${c[0]},${c[1]})">
+      <span class="bemoji">${ic}</span>
+      ${r.trend?'<span class="disc">🔥 Tendencia</span>':''}
+      ${r.star?`<span class="ribbon">★ ${r.star}</span>`:''}
+      <button class="fav ${isFav?'on':''}" title="Favorito">♥</button>
+    </div>
+    <div class="body">
+      <h3>${r.n}</h3>
+      ${r.chef && r.chef!=='—'?`<div class="chef">👨‍🍳 ${r.chef}</div>`:''}
+      <div class="metaline"><span>${ic} ${r.cat}</span><span>📍 ${r.zone}</span><span class="price">${r.price}</span></div>
+      <div class="range">💵 ${r.range}</div>
+      <div class="dishes"><ul>${r.dishes.map(d=>`<li>${d}</li>`).join('')}</ul></div>
+      <div class="why">${r.why}</div>
+      <div class="cardfoot">📌 ${r.addr}</div>
+      <div class="byrow">
+        <span class="by">${r.by?'🎬 '+r.by:''}</span>
+        ${r.byUrl
+          ? `<a class="cta" href="${r.byUrl}" target="_blank" rel="noopener">▶ Ver en TikTok</a>`
+          : `<a class="cta search" href="https://www.tiktok.com/search?q=${encodeURIComponent(r.n+' Lima')}" target="_blank" rel="noopener">🔎 Buscar en TikTok</a>`}
+      </div>
+    </div>
+  `;
+  el.querySelector('.fav').onclick=()=>{
+    if(favs.has(r.n))favs.delete(r.n);else favs.add(r.n);
+    render();
+  };
+  return el;
+}
+
+document.getElementById('q').addEventListener('input',render);
+['zone','price','sort','fTrend','fFav'].forEach(id=>document.getElementById(id).addEventListener('change',render));
+
+const modalBg=document.getElementById('modalBg');
+document.getElementById('addBtn').onclick=()=>modalBg.classList.add('on');
+document.getElementById('mCancel').onclick=()=>modalBg.classList.remove('on');
+modalBg.onclick=e=>{if(e.target===modalBg)modalBg.classList.remove('on');};
+document.getElementById('mSave').onclick=()=>{
+  const n=document.getElementById('m-name').value.trim();
+  if(!n){alert('Ponle un nombre al restaurante');return;}
+  DATA.push({
+    n, cat:document.getElementById('m-cat').value,
+    chef:document.getElementById('m-chef').value.trim()||'—',
+    zone:document.getElementById('m-zone').value.trim()||'—',
+    addr:document.getElementById('m-addr').value.trim()||'—',
+    price:document.getElementById('m-price').value,
+    range:document.getElementById('m-range').value.trim()||'—',
+    trend:document.getElementById('m-trend').checked,
+    star:document.getElementById('m-trend').checked?'🔥 Agregado por ti':'Agregado por ti',
+    dishes:document.getElementById('m-dishes').value.split(',').map(s=>s.trim()).filter(Boolean),
+    why:document.getElementById('m-why').value.trim()||'—'
+  });
+  ['m-name','m-chef','m-zone','m-addr','m-range','m-dishes','m-why'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('m-trend').checked=false;
+  modalBg.classList.remove('on');
+  buildZones();render();
+};
+
+document.getElementById('exportBtn').onclick=()=>{
+  const rows=[['Nombre','Tipo','Chef','Zona','Direccion','Precio','Rango de precios','De moda TikTok','Recomendado por','Reconocimiento','Platos recomendados','Por que']];
+  DATA.forEach(r=>rows.push([r.n,r.cat,r.chef,r.zone,r.addr,r.price,r.range,r.trend?'Si':'No',r.by||'',r.star,r.dishes.join(' | '),r.why]));
+  const csv=rows.map(row=>row.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(',')).join('\n');
+  const blob=new Blob(['﻿'+csv],{type:'text/csv;charset=utf-8;'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='restaurantes-lima.csv';
+  a.click();
+};
+
+buildStrip();buildZones();render();
+</script>
+</body>
+</html>
