@@ -734,8 +734,9 @@ function buildZones(){
 }
 
 const resEl=document.getElementById('results');
+const noAccents=s=>(s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
 function render(){
-  const q=document.getElementById('q').value.toLowerCase().trim();
+  const q=noAccents(document.getElementById('q').value.trim());
   const zone=document.getElementById('zone').value;
   const price=document.getElementById('price').value;
   const onlyTrend=document.getElementById('fTrend').checked;
@@ -749,7 +750,7 @@ function render(){
     if(onlyFav && !favs.has(r.n)) return false;
     if(onlyTrend && !r.trend) return false;
     if(q){
-      const hay=(r.n+' '+r.zone+' '+r.cat+' '+r.chef+' '+(r.by||'')+' '+r.dishes.join(' ')+' '+r.why).toLowerCase();
+      const hay=noAccents(r.n+' '+r.zone+' '+r.cat+' '+r.chef+' '+(r.by||'')+' '+r.dishes.join(' ')+' '+r.why);
       if(!hay.includes(q)) return false;
     }
     return true;
