@@ -43,3 +43,11 @@
 # --- Agregados 2026-08-20 (patrulla) ---
 @alonso_food
 @mirafoodies
+
+# --- Agregados 2026-08-21 (patrulla) ---
+@enigmaviaggi
+@jefflop9
+
+# --- Agregados 2026-08-21 (patrulla, descubiertos por WebSearch) ---
+@likeafoodie.pe
+@foodie.viajera
