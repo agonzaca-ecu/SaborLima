@@ -1,0 +1,41 @@
+# CREADORES A VIGILAR — Sabor Lima
+# Un @handle de TikTok por línea. Las líneas que empiezan con # son comentarios.
+# La tarea semanal LEE este archivo, revisa cada perfil y AGREGA aquí (append)
+# cualquier creador nuevo que descubra. Editable a mano cuando quieras.
+#
+# Nota: pavlogger, dondeestaronald y ariannabhurtado suelen ser viajes/lifestyle
+# — revísalos igual, pero es normal que no aporten restaurantes.
+
+# --- Lista base ---
+@manuriverarios
+@los.buenos.points
+@mangiale__
+@pavlogger
+@enjoy_eat_lima
+@limaconcafeina
+@ariannabhurtado
+@dondeestaronald
+@restauranteqollota
+@laplazaartesanalentiktok
+@lapanzadearantxa
+@the.foodie.club
+@genteconfilo
+@planes.pe
+@aldocomunica.pe
+@orgastrotv
+@caotica.lab
+@hablafood
+@palomaguinand
+
+# --- Agregados automáticamente (patrullas 2026) ---
+@vinoconjdc
+@foteaconmigo
+@paulaa.cervantes
+@que.engorde
+@aithanaaita
+@alonsosalvador3
+@giuliannasoriano
+@valefloodie
+@ramiroarribasplata
+@cocococina.pe
+@foodiecromatico
