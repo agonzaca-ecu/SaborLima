@@ -55,3 +55,6 @@
 # --- Agregados 2026-08-22 (carga semanal) ---
 @with.raffa
 @jamaenruta
+
+# --- Agregados 2026-08-23 (carga semanal, descubierto por WebSearch) ---
+@fabianaperalessau
