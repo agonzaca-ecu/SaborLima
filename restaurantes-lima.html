@@ -276,9 +276,10 @@ let DATA = [
   {n:"Mérito", cat:"Alta cocina", chef:"Juan Luis Martínez", zone:"Barranco", addr:"Jr. 28 de Julio 206", price:"$$$", range:"S/ 180–300", trend:true, star:"#4 Latin America's 50 Best",
     dishes:["Bao de rabo","Causa de la casa","Cordero"],
     why:"Cocina venezolano-peruana joven y creativa, favorita de la crítica y de las redes."},
-  {n:"Cosme", cat:"Alta cocina", chef:"Ignacio Barrios", zone:"San Isidro", addr:"Calle El Virrey 700", price:"$$$", range:"S/ 120–200", trend:false, star:"#9 Latin America's 50 Best",
-    dishes:["Anticucho de pulpo","Ceviche cosme","Postres de autor"],
-    why:"Bistró contemporáneo con guiños peruanos; ambiente relajado y platos muy fotografiados."},
+  {n:"Cosme", cat:"Alta cocina", chef:"Ignacio Barrios", zone:"San Isidro", addr:"Av. Tudela y Varela 162, San Isidro", price:"$$$", range:"S/ 120–200", trend:true, star:"#9 Latin America's 50 Best",
+    by:"Kev y Lore · Los buenos points (@los.buenos.points)", byUrl:"https://www.tiktok.com/@los.buenos.points/video/7468056237519736069",
+    dishes:["Anticucho de pulpo","Ceviche cosme","Crema volteada","Postres de autor"],
+    why:"Bistró contemporáneo con guiños peruanos; ambiente relajado y platos muy fotografiados. Los buenos points celebraron aquí su tercer aniversario y destacan su crema volteada."},
 
   // ---------- Cevichería ----------
   {n:"La Mar", cat:"Cevichería", chef:"Gastón Acurio", zone:"Miraflores", addr:"Av. La Mar 770", price:"$$$", range:"S/ 90–160", trend:true, star:"#26 Latin America's 50 Best",
@@ -733,6 +734,44 @@ let DATA = [
     by:"Mira Foodies (@mirafoodies)", byUrl:"https://vt.tiktok.com/ZSVykV2XN/",
     dishes:["Ceviches","Tiraditos","Causas","Sushi y chaufa","Pescados y mariscos a la parrilla"],
     why:"Cevichería de autor del chef Rafael Osterling en Miraflores; solo almuerzos (mar–dom, 12:30–17:00) y sin reservas. Ceviches, tiraditos, causas y cocina marina moderna."},
+
+  // ---------- Patrulla 22-ago-2026 (carga semanal) · correos "Sabor Lima" procesados con Chrome/oEmbed (Browser 2, sesión no iniciada → solo oEmbed por video). Creador nuevo: @with.raffa. Enriquecido: Cosme (video de @los.buenos.points, antes sin video). Links no procesados: @jamaenruta/steph (oEmbed sin metadata, correo SIN LEER) y @miam.cafe.miami (MIAM Café es de Miami, no Lima → descartado, correo SIN LEER) ----------
+  {n:"Puerto Norte", cat:"Cevichería", chef:"José y María (fundadores)", zone:"Centro de Lima", addr:"Av. España 224, Cercado de Lima", price:"$$", range:"S/ 30–70", trend:true, star:"Pescados y mariscos con toque norteño · desde 2009",
+    by:"with.raffa (@with.raffa)", byUrl:"https://www.tiktok.com/@with.raffa/video/7676320257199328533",
+    dishes:["Ceviches","Pescados y mariscos","Cocina norteña cajamarquina","Coctelería de la casa"],
+    why:"Restaurante de una pareja cajamarquina que empezó vendiendo menús en un terminal terrestre y hoy tiene un local grande y acogedor en el Centro de Lima; cocina fusión de pescados y mariscos con toque norteño y familiar. Carta de día, de noche y de coctelería. Abre de lunes a domingo de 12 a 10 pm."},
+
+  // ---------- Patrulla 23-ago-2026 (carga semanal) · TikTok bloqueado (sesión NO iniciada en el navegador → muro de login + CAPTCHA + "limitación de espectadores"; no se resuelven CAPTCHAs). 2 correos "Sabor Lima" quedaron SIN LEER: (1) "steph" @jamaenruta → video con limitación de espectadores, caption ilegible sin sesión; (2) "MIAM Café" @miam.cafe.miami → café de Miami, no Lima → descartado. Nuevos restaurantes descubiertos y verificados vía WebSearch (revista Cosas). Dhaasu ya estaba en DATA → no duplicado ----------
+  {n:"Picnic", cat:"Alta cocina", chef:"Rafael Osterling / Lukas Sifuentes", zone:"San Isidro", addr:"Tudela y Varela 191, San Isidro", price:"$$$", range:"S/ 70–140", trend:true, star:"Nuevo bistró de Osterling y Alzamora",
+    by:"Descubierto vía web · Cosas (tarea programada)",
+    dishes:["Piqueos para compartir","Clásicos peruanos de autor","Platos principales","Carta de vinos y cocteles"],
+    why:"Bistró de Rafael Osterling y Rodrigo Alzamora (cocina de Lukas Sifuentes) en un semisótano de Tudela y Varela: carta corta y atractiva, clásicos con su toque y platos de autor, ambiente relajado y con onda. Ideal para ir en familia, pareja o almuerzos de trabajo."},
+  {n:"Clon", cat:"Alta cocina", chef:"Juan Luis Martínez", zone:"Barranco", addr:"Av. Miguel Grau 903 A, Barranco", price:"$$$", range:"S/ 70–130", trend:true, star:"El hermano casual de Mérito",
+    by:"Descubierto vía web · Cosas (tarea programada)",
+    dishes:["Arepas","Conchitas a la brasa","Coctelería de Lady Bee","Flan de coco"],
+    why:"Proyecto casual del chef venezolano Juan Luis Martínez (Mérito & Demo) en Barranco: espacio pequeño y divertido con arepas, conchitas a la brasa y coctelería desarrollada por Lady Bee. Su flan de coco ya es célebre en el barrio."},
+  {n:"Melange", cat:"Alta cocina", chef:"Heine Herold", zone:"Miraflores", addr:"Av. Santa Cruz 251, Miraflores", price:"$$$", range:"S/ 90–160", trend:true, star:"Nuevo proyecto del chef de Catalina 555",
+    by:"Descubierto vía web · Cosas (tarea programada)",
+    dishes:["Platos peruanos con técnicas innovadoras","Referencias internacionales","Cocina de autor"],
+    why:"Nuevo restaurante del carismático chef Heine Herold (Catalina 555) en un semisótano de la avenida Santa Cruz; cocina peruana con técnicas innovadoras y guiños internacionales. Propuesta emergente muy comentada."},
+  {n:"Frina", cat:"Alta cocina", chef:"Francesca Ferreyros", zone:"San Isidro", addr:"Av. Arequipa 9560, San Isidro (DoubleTree)", price:"$$$", range:"S/ 90–160", trend:true, star:"Una de las aperturas más esperadas del año",
+    by:"Descubierto vía web · Cosas (tarea programada)",
+    dishes:["Cocina de autor con picante protagonista","Platos inspirados en sus viajes","Menú personal de la chef"],
+    why:"El ambicioso proyecto de la chef Francesca Ferreyros dentro del nuevo DoubleTree de San Isidro: una carta basada en su vida y viajes donde el picante es protagonista. Local pequeño y acogedor; conviene reservar."},
+  {n:"Sala Omakase", cat:"Nikkei / Japonesa", chef:"Robby (itamae)", zone:"La Molina", addr:"Santiago de Compostela 125, La Molina", price:"$$$$", range:"Consultar (omakase, 8 pasos · solo reserva)", trend:true, star:"Tesoro escondido de La Molina",
+    by:"Descubierto vía web · Cosas (tarea programada)",
+    dishes:["Experiencia omakase de 8 pasos","Menú personalizado por el itamae","Sushi y cocina nikkei de temporada"],
+    why:"Barra omakase íntima (10 personas por servicio) en La Molina: el itamae diseña un menú personalizado de ocho pasos según el perfil del comensal. Solo bajo reserva; sus cupos suelen estar a tope por el boca a boca."},
+  {n:"Buche", cat:"Criolla", chef:"Marco Piera y Jean Paul Barbieri", zone:"San Isidro", addr:"Cantuarias y Moreyra 305, San Isidro", price:"$$", range:"S/ 50–90", trend:true, star:"Comida de diario bien ejecutada",
+    by:"Descubierto vía web · Cosas (tarea programada)",
+    dishes:["Chaufa de lomo","Milanesa de corvina","Seco norteño","Crema volteada"],
+    why:"Apertura de los amigos y cocineros Marco Piera y Jean Paul Barbieri en la zona empresarial de San Isidro: comida sabrosa de diario, muy bien ejecutada y con porciones generosas. Su crema volteada se perfila como una de las mejores de Lima."},
+
+  // ---------- Patrulla 23-ago-2026 (revisión con sesión TikTok iniciada) · correo "steph" @jamaenruta procesado ----------
+  {n:"Trattoria Don Vito", cat:"Internacional", chef:"—", zone:"Miraflores", addr:"Calle Martín Dulanto 111, Miraflores", price:"$$$", range:"S/ 60–120", trend:true, star:"Trattoria italiana clásica · +40 años",
+    by:"steph (@jamaenruta)", byUrl:"https://www.tiktok.com/@jamaenruta/video/7663183019209018632",
+    dishes:["Lasaña","Pastas artesanales","Risottos","Arancini al Tartufo"],
+    why:"Trattoria italiana con más de 40 años en Miraflores; renovó su carta con nuevas pastas, risottos y clásicos como los arancini al tartufo (croquetas de risotto con crema de parmesano y granizado de trufa negra). Reseñada por la creadora steph (@jamaenruta)."},
 ];
 
 let activeCat = "";

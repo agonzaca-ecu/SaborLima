@@ -51,3 +51,7 @@
 # --- Agregados 2026-08-21 (patrulla, descubiertos por WebSearch) ---
 @likeafoodie.pe
 @foodie.viajera
+
+# --- Agregados 2026-08-22 (carga semanal) ---
+@with.raffa
+@jamaenruta
