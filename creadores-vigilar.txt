@@ -61,3 +61,8 @@
 
 # --- Agregados 2026-08-24 (carga semanal, descubierto por WebSearch) ---
 @lorice.m1
+
+# --- Agregados 2026-08-27 (carga semanal, descubiertos por WebSearch) ---
+@lugarestop.pe
+@gianelladesouza
+@paola.arrasco
