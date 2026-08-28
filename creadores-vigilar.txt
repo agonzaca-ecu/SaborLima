@@ -66,3 +66,6 @@
 @lugarestop.pe
 @gianelladesouza
 @paola.arrasco
+
+# --- Agregados 2026-08-28 (carga semanal, desde correo) ---
+@alediazmantilla
