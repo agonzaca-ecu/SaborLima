@@ -69,3 +69,6 @@
 
 # --- Agregados 2026-08-28 (carga semanal, desde correo) ---
 @alediazmantilla
+
+# --- Agregados 2026-09-01 (carga semanal, descubierto por WebSearch) ---
+@elsaborista.pe
