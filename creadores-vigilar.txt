@@ -73,3 +73,6 @@
 # --- Agregados 2026-09-01 (carga semanal, descubierto por WebSearch) ---
 @elsaborista.pe
 @wariqueando
+
+# --- Agregados 2026-09-04 (carga semanal, desde correo) ---
+@arianaarevalol
