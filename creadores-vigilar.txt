@@ -87,3 +87,11 @@
 # --- Agregados 2026-09-07 (carga semanal, descubierto vía reseña de La Ostrería) ---
 # @todoporpuntos (Jaime) es cuenta mixta viajes/restaurantes/recetas — revisar igual
 @todoporpuntos
+
+# --- Agregados 2026-09-10 (carga semanal, descubierto por WebSearch; historial NO crawleado: Chrome/sesión TikTok desconectada) ---
+# Rossy — reseñó "Los Ches Restaurant" (parrilla, San Borja). Pendiente revisar su historial completo cuando Chrome vuelva.
+@thatsmellsdelicious_
+
+# --- Agregados 2026-09-11 (carga semanal; sesión TikTok deslogueada, historial NO crawleado) ---
+# @camiiiloret reseñó "Otôto" (barra nikkei-omakase, Surquillo). Pendiente revisar historial completo cuando la sesión de TikTok vuelva.
+@camiiiloret
