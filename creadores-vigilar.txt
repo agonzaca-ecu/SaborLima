@@ -95,3 +95,7 @@
 # --- Agregados 2026-09-11 (carga semanal; sesión TikTok deslogueada, historial NO crawleado) ---
 # @camiiiloret reseñó "Otôto" (barra nikkei-omakase, Surquillo). Pendiente revisar historial completo cuando la sesión de TikTok vuelva.
 @camiiiloret
+
+# --- Patrulla 2026-09-20 (carga semanal): sin creadores nuevos. 9 restaurantes agregados, 4 enriquecidos con video. ---
+
+# --- Patrulla 2026-09-21 (carga semanal): sesión TikTok DESLOGUEADA (muros "Iniciar sesión"; páginas de video directas dan error). Sin creadores nuevos. 8 restaurantes agregados (7 de @manuriverarios vía su playlist "Aquí comes rico" + 1 por WebSearch: Más Carne Que Hueso). byUrl omitido en los 7 de Manu por no poder abrir el video exacto (sesión sin login). Sin correos nuevos en Gmail. ---
