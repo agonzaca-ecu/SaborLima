@@ -119,3 +119,12 @@
 @angeliquem84
 
 # --- Patrulla 2026-10-03 (carga semanal): 4 correos. Sin creadores nuevos (bonappetitrose, angeliquem84, the.foodie.club, foodie.viajera ya estaban). TikTok mostró CAPTCHA en el video de foodie.viajera (no resuelto) y limitó grillas: historial de bonappetitrose y angeliquem84 PENDIENTE. ---
+
+# --- Patrulla 2026-10-05 (desde correo; CAPTCHA de TikTok bloqueo el video, historial NO crawleado: PENDIENTE) ---
+@carolinacubasq
+
+# --- Patrulla 2026-10-06 (carga semanal): 2 correos. Sin creadores nuevos. Carolina Cubas (@carolinacubasq): video = MOMO (San Isidro) ya en DATA con byUrl de @valefloodie -> duplicado omitido; su grilla no carga ("Hubo un problema") y es cuenta lifestyle/maternidad; historial PENDIENTE. Video de @foodie.viajera (Miraflores, bistro) sin nombre en caption ni pantalla: NO identificado, correo dejado sin leer. TikTok con CAPTCHA/limites; cola pendiente sin revisar: gianelladesouza, paola.arrasco, alediazmantilla, elsaborista.pe, wariqueando, arianaarevalol, restaurantesperu, atodocomer, todoporpuntos, bonappetitrose, angeliquem84. 0 nuevos + 0 enriquecidos. ---
+
+# --- Patrulla 2026-10-09 (carga semanal): 3 correos sin leer (the.foodie.club, Jose Daniel, foodie.viajera). TikTok mostro CAPTCHA (no resuelto) en el primer video; sin datos nuevos. Correos dejados SIN LEER. Sin creadores nuevos; cola pendiente sin cambios. 0 nuevos. ---
+
+# --- Patrulla 2026-10-12 (carga semanal): 4 correos sin leer. Sin creadores nuevos. TikTok bloqueó ("Please wait...") 3 de 4 videos (the.foodie.club, vinoconjdc, foodie.viajera): correos dejados SIN LEER. Manu Rivera = Chakana Bar (ya en DATA con byUrl; se completó dirección). Cola pendiente sin cambios. 0 nuevos + 1 completado. ---
