@@ -128,3 +128,5 @@
 # --- Patrulla 2026-10-09 (carga semanal): 3 correos sin leer (the.foodie.club, Jose Daniel, foodie.viajera). TikTok mostro CAPTCHA (no resuelto) en el primer video; sin datos nuevos. Correos dejados SIN LEER. Sin creadores nuevos; cola pendiente sin cambios. 0 nuevos. ---
 
 # --- Patrulla 2026-10-12 (carga semanal): 4 correos sin leer. Sin creadores nuevos. TikTok bloqueó ("Please wait...") 3 de 4 videos (the.foodie.club, vinoconjdc, foodie.viajera): correos dejados SIN LEER. Manu Rivera = Chakana Bar (ya en DATA con byUrl; se completó dirección). Cola pendiente sin cambios. 0 nuevos + 1 completado. ---
+
+# --- Patrulla 2026-10-14 (carga semanal): 3 correos. Sin creadores nuevos. Yakimo Omakase (@vinoconjdc) agregado. the.foodie.club (La Mar parte 3, sin nombres en caption) y foodie.viajera (bistro Miraflores sin nombre) NO identificados: correos dejados SIN LEER. TikTok deslogueado; cola pendiente sin cambios. 1 nuevo. ---
