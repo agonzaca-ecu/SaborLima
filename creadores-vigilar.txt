@@ -130,3 +130,27 @@
 # --- Patrulla 2026-10-12 (carga semanal): 4 correos sin leer. Sin creadores nuevos. TikTok bloqueó ("Please wait...") 3 de 4 videos (the.foodie.club, vinoconjdc, foodie.viajera): correos dejados SIN LEER. Manu Rivera = Chakana Bar (ya en DATA con byUrl; se completó dirección). Cola pendiente sin cambios. 0 nuevos + 1 completado. ---
 
 # --- Patrulla 2026-10-14 (carga semanal): 3 correos. Sin creadores nuevos. Yakimo Omakase (@vinoconjdc) agregado. the.foodie.club (La Mar parte 3, sin nombres en caption) y foodie.viajera (bistro Miraflores sin nombre) NO identificados: correos dejados SIN LEER. TikTok deslogueado; cola pendiente sin cambios. 1 nuevo. ---
+
+# --- Patrulla 2026-10-18 (carga semanal): 2 correos sin leer (the.foodie.club La Mar parte 3; foodie.viajera bistro Miraflores). Sesion TikTok DESLOGUEADA (modal Iniciar sesion tras 5s): nombres no identificables, correos dejados SIN LEER. Sin creadores nuevos. 0 nuevos. Requiere que el usuario vuelva a iniciar sesion en TikTok en el navegador. ---
+
+# --- Patrulla 2026-10-19 (carga semanal): 2 correos sin leer (the.foodie.club La Mar parte 3; foodie.viajera bistro Miraflores). Sesion TikTok DESLOGUEADA (boton Iniciar sesion visible): nombres no identificables con certeza (solo texto en pantalla ambiguo), correos dejados SIN LEER. Sin creadores nuevos. 0 nuevos. ---
+
+# --- Patrulla 2026-10-24 (carga semanal): mismos 2 correos sin leer (the.foodie.club La Mar parte 3; foodie.viajera bistro Miraflores). Sesion TikTok DESLOGUEADA (boton Iniciar sesion visible): sin identificar nombres, correos SIN LEER. 0 nuevos. Requiere re-login en TikTok. ---
+
+# --- Patrulla 2026-10-25 (carga semanal): mismos 2 correos sin leer. Sesion TikTok DESLOGUEADA (boton Iniciar sesion visible); caption de the.foodie.club (La Mar parte 3) sin nombres. Correos SIN LEER. 0 nuevos. Requiere re-login en TikTok. ---
+
+# --- Patrulla 2026-10-27 (carga semanal): mismos 2 correos sin leer. Sesion TikTok DESLOGUEADA (modal Iniciar sesion); caption "3 restaurantes imperdibles en La Mar" sin nombres. Correos SIN LEER. 0 nuevos. Requiere re-login en TikTok. ---
+
+# --- Patrulla 2026-10-31 (carga semanal): mismos 2 correos sin leer (the.foodie.club La Mar parte 3; foodie.viajera bistro Miraflores). Sesion TikTok DESLOGUEADA (boton Iniciar sesion visible); caption sin nombres. Correos SIN LEER. 0 nuevos. Requiere re-login en TikTok. ---
+
+# --- Patrulla 2026-11-01 (carga semanal): mismos 2 correos sin leer. Sesion TikTok DESLOGUEADA (boton Iniciar sesion visible). Correos SIN LEER. 0 nuevos. Requiere re-login en TikTok. ---
+
+# --- Patrulla 2026-11-02 (carga semanal): mismos 2 correos sin leer. Sesion TikTok DESLOGUEADA (modal Iniciar sesion). Correos SIN LEER. 0 nuevos. Requiere re-login en TikTok. ---
+
+# --- Patrulla 2026-11-03 (carga semanal): mismos 2 correos sin leer. Sesion TikTok DESLOGUEADA (boton Iniciar sesion visible). Correos SIN LEER. 0 nuevos. Requiere re-login en TikTok. ---
+
+# --- Patrulla 2026-11-04 (carga semanal): mismos 2 correos sin leer (the.foodie.club La Mar parte 3; foodie.viajera bistro Miraflores). Perfil the.foodie.club carga, pero las paginas de VIDEO de TikTok dan error de navegador (error page) incluso con URL canonica: no se pudo leer caption. Correos SIN LEER. 0 nuevos. Requiere revisar login/red de TikTok en el navegador.
+
+# --- Patrulla 2026-11-05 (carga semanal): mismos 2 correos sin leer. Sesion TikTok DESLOGUEADA ("Iniciar sesion para comentar"); caption de La Mar parte 3 sin nombres de restaurantes; JS bloqueado en tiktok.com. Correos SIN LEER. 0 nuevos. Requiere re-login en TikTok.
+
+# --- Patrulla 2026-11-06 (carga semanal): mismos 2 correos sin leer. Sesion TikTok DESLOGUEADA (boton Iniciar sesion visible; renderer se congela al abrir videos). Correos SIN LEER. 0 nuevos. Requiere re-login en TikTok.
